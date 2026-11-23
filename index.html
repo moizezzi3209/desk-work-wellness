@@ -261,7 +261,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 16px 30px;color:var(--muted);fon
   }
   function toNumber(v){if(v===''||v===null||v===undefined)return null;const n=Number(v);return Number.isFinite(n)?n:null;}
   function safeInput(el){const min=Number(el.min),max=Number(el.max);let v=el.value;if(v==='')return '';let n=Number(v);if(!Number.isFinite(n))return '';if(Number.isFinite(min))n=Math.max(min,n);if(Number.isFinite(max))n=Math.min(max,n);return String(n);}
-  function setInput(el){const i=Number(el.dataset.day),field=el.dataset.field;if(el.dataset.group){current.days[i][el.dataset.group][field]=safeInput(el);}else{current.days[i][field]=safeInput(el);if(field==='status'&&current.days[i].status==='no-work'){current.days[i].sitting='';current.days[i].everyday={occasions:'',minutes:''};current.days[i].breaks={occasions:'',minutes:''};}updateDayAvailability(i);}scheduleSave();updateSummary();}
+  function setInput(el){const i=Number(el.dataset.day),field=el.dataset.field;if(el.dataset.group){current.days[i][el.dataset.group][field]=safeInput(el);}else{current.days[i][field]=field==='status'?el.value:safeInput(el);if(field==='status'&&current.days[i].status==='no-work'){current.days[i].sitting='';current.days[i].everyday={occasions:'',minutes:''};current.days[i].breaks={occasions:'',minutes:''};}updateDayAvailability(i);}scheduleSave();updateSummary();}
   function scheduleSave(){clearTimeout(debounce);$('saveStatus').textContent='Saving…';debounce=setTimeout(saveAuto,180);}
   function sumGroup(group,field){let total=0,count=0;current.days.forEach(d=>{if(d.status!=='desk')return;const v=toNumber(d[group][field]);if(v!==null){total+=v;count++;}});return {total,count};}
   function calculate(){
