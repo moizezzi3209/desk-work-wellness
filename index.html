@@ -25,6 +25,7 @@ h1{font-family:Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05;mar
 main{padding:23px 0 60px}
 .intro{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px 18px;margin-bottom:17px;box-shadow:var(--shadow)}
 .intro strong{color:var(--plum)}
+.save-note{background:#f6f0f3;border:1px solid #eadce3;border-radius:12px;padding:11px 15px;margin:-5px 0 16px;color:#54464e;font-size:.84rem}.save-note strong{color:var(--plum)}.save-note span{color:var(--muted)}
 .section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;margin:16px 0;box-shadow:var(--shadow)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
 .section h2{font:700 1.45rem/1.2 Georgia,serif;color:var(--plum);margin:0 0 4px}
@@ -113,6 +114,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 16px 30px;color:var(--muted);fon
 </header>
 <main class="wrap">
   <div class="intro"><strong>This is an awareness tool, not a fitness tracker or health-risk assessment.</strong> Record your sitting during desk work and your other sitting during the rest of the day. Your estimated total daily sitting is the sum of those two figures. Do not include sleep.</div>
+  <div class="save-note" role="note"><strong>Your entries save automatically.</strong> Use the same device and browser each day. Before clearing browser data or moving to another device, use “Export my entries” below to keep a copy. <span>Private/incognito browsing may not retain entries after you close it.</span></div>
 
   <section class="section" aria-labelledby="recordTitle">
     <div class="section-head"><div><h2 id="recordTitle">1. Record my week</h2><p>Use estimates. You do not need to measure every minute.</p></div><span class="step">Seven days</span></div>
@@ -192,7 +194,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 16px 30px;color:var(--muted);fon
     </div>
     <div class="compare" id="comparison" aria-live="polite">Save this week's review. When you have another saved week, you can see a simple comparison here. Changes are descriptive, not a health score.</div>
     <div class="actions"><button class="btn" id="saveWeek">Save this week's review</button><button class="btn secondary" id="exportData">Export my entries</button><button class="btn secondary" id="printPage" type="button">Print summary</button><span class="save-status" id="saveStatus" aria-live="polite">Your entries save automatically in this browser.</span></div>
-    <p class="privacy">Your entries are stored in this browser on this device; they are not sent to a server or shared with the campaign. They may be lost if browser data is cleared. Use “Export my entries” to keep a copy. This tool does not diagnose, assess health risk or replace advice from a qualified health professional.</p>
+    <p class="privacy">Your entries stay in this browser on this device. They are not sent to a server or shared with the campaign. You can export a copy at any time. This tool does not diagnose, assess health risk or replace advice from a qualified health professional.</p>
   </section>
 </main>
 <footer>Desk Work Wellness · A personal awareness and reflection tool</footer>
