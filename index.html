@@ -206,6 +206,40 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 @media(max-width:1050px){.top-grid{grid-template-columns:1.2fr .8fr}.guideline{grid-column:1/-1}.gauge-layout{justify-content:center}.record-layout{grid-template-columns:1fr}.guide-card{display:grid;grid-template-columns:1fr 1fr;column-gap:15px}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:1/-1}.guide-type{margin:5px 0}}
 @media(max-width:700px){.wrap{width:calc(100% - 18px)}.header-inner{align-items:flex-start;flex-direction:column;gap:8px}.brand-mark{width:48px;flex-basis:48px;font-size:30px}.brand{gap:8px}.brand-copy h1{font-size:1.45rem}.brand-copy p{font-size:.78rem}.nav{width:100%;justify-content:space-between;gap:2px}.nav a{font-size:.69rem;padding:8px 6px}.top-grid{grid-template-columns:1fr 1fr;gap:7px}.overview{grid-column:1/-1}.guideline{grid-column:1/-1}.panel{padding:11px}.panel-title{font-size:1.1rem}.metric{padding:9px;min-height:70px}.metric-icon{font-size:21px}.metric-value{font-size:1.2rem}.metric-label{font-size:.72rem}.week-summary .chart-wrap{height:80px}.gauge-layout{justify-content:flex-start}.section{padding:11px;margin:10px 0}.section-head h2{font-size:1.35rem}.section-head p{font-size:.77rem}.step-number{width:33px;height:33px;flex-basis:33px}.table-card,.guide-card{padding:9px}.guide-card{display:block}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:auto}.week-inputs,.detail-grid{grid-template-columns:1fr}.bottom-actions .btn{flex:1 1 auto}.status{width:100%}}
 @media print{body{background:#fff;font-size:11px}.wrap{width:100%}header{border:0}.nav,.bottom-actions,.week-inputs,.guide-card,.table-hint,.privacy,.summary-button{display:none!important}.top-grid{grid-template-columns:1.3fr .8fr .9fr}.panel,.section{box-shadow:none;break-inside:avoid}.section{padding:8px;margin:8px 0}.record-layout{grid-template-columns:1fr}.table-card{border:0;padding:0}.table-scroll{overflow:visible}table{min-width:0;font-size:8px}td input{border:0;padding:2px;font-size:8px}.goal-section textarea{min-height:80px}.details{display:block}.details summary{display:none}.details-body{display:block!important;padding:5px}.detail-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* Mobile-first stacked weekly trackers */
+.week-range{margin-left:auto;align-self:center;color:var(--muted);font-size:.76rem;white-space:nowrap;background:#f8f3f6;padding:6px 10px;border-radius:18px}
+.recording-guide{display:grid;grid-template-columns:1.05fr 1.4fr;gap:10px;margin:0 0 13px}
+.guide-intro-card,.guide-opportunities{border:1px solid var(--line);border-radius:11px;background:#fbf7f9;padding:11px}
+.guide-intro-card strong,.guide-opportunities strong{display:block;color:var(--plum);font-size:.88rem;margin-bottom:5px}
+.guide-intro-card p{font-size:.75rem;line-height:1.4;margin:4px 0}
+.guide-types{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.guide-types .guide-type{margin:0;padding:10px}
+.guide-opportunities{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fffaf1}
+.guide-opportunities strong{margin:0}.guide-opportunities span{font-size:.73rem}.guide-opportunities small{font-size:.68rem;color:var(--muted)}
+.tracker-stack{display:flex;flex-direction:column;gap:11px}
+.tracker-card{padding:11px}
+.tracker-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.tracker-card-head .table-title{margin:0}.tracker-card-head p{font-size:.73rem;color:var(--muted);margin:3px 0 0}
+.unit-tag{flex:0 0 auto;border-radius:20px;padding:5px 9px;background:#f7f3f5;color:var(--plum);font-size:.68rem;font-weight:750}
+.stacked-table{width:100%;min-width:0;table-layout:fixed}
+.stacked-table th,.stacked-table td{padding:6px 4px}
+.stacked-table thead th{font-size:.75rem}.stacked-table thead th small{display:block;font-size:.65rem;font-weight:500;margin-top:2px}
+.stacked-table tbody th{text-align:left;padding-left:8px;font-size:.76rem}
+.stacked-table td input{font-size:.82rem;padding:8px 3px}
+@media(max-width:650px){
+ .section{padding:11px}.section-head{gap:8px;flex-wrap:wrap}.section-head h2{font-size:1.35rem}.section-head p{font-size:.78rem}
+ .week-range{margin-left:47px;margin-top:-7px}.recording-guide{grid-template-columns:1fr;gap:8px}
+ .guide-types{grid-template-columns:1fr 1fr}.guide-opportunities{grid-column:auto;display:block}
+ .guide-opportunities strong{margin-bottom:4px}.guide-opportunities span,.guide-opportunities small{display:block;margin-top:4px}
+ .tracker-card{padding:8px}.tracker-card-head{align-items:flex-start}.tracker-card-head .table-title{font-size:1rem}
+ .unit-tag{font-size:.62rem;padding:4px 7px}.stacked-table th,.stacked-table td{padding:5px 2px}
+ .stacked-table thead th{font-size:.67rem;overflow-wrap:anywhere}.stacked-table thead th small{font-size:.59rem}
+ .stacked-table tbody th{font-size:.7rem;padding-left:5px}.stacked-table td input{font-size:.72rem;padding:8px 1px}
+ .table-hint{font-size:.67rem}
+}
+@media(max-width:380px){.guide-types{grid-template-columns:1fr}.stacked-table thead th{font-size:.62rem}.stacked-table td input{font-size:.68rem}}
+
 </style>
 </head>
 <body>
@@ -277,7 +311,7 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
     <details class="dashboard-details" id="weeklySummary" aria-label="Weekly summary details and actions">
       <div class="dashboard-details-body">
         <div class="detail-grid">
-          <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div><div class="detail-line"><span>Longest uninterrupted sitting</span><strong id="detailLongest">—</strong></div></div>
+          <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div></div>
           <div class="detail-card"><h3>Movement log</h3><div class="detail-line"><span>Everyday movement</span><strong id="detailEveryday">—</strong></div><div class="detail-line"><span>Deliberate breaks</span><strong id="detailBreaks">—</strong></div><div class="detail-line"><span>Combined recorded movement</span><strong id="detailMovement">—</strong></div><p class="privacy">Movement minutes are interruptions to sitting, not a measure of exercise intensity.</p></div>
           <div class="detail-card"><h3>Weekly physical activity</h3><div class="detail-line"><span>Moderate intensity</span><strong id="detailModerate">—</strong></div><div class="detail-line"><span>Vigorous intensity</span><strong id="detailVigorous">—</strong></div><div class="detail-line"><span>Moderate-equivalent</span><strong id="detailEquivalent">—</strong></div><div class="detail-line"><span>Adult minimum guideline</span><strong id="detailGuideline">—</strong></div></div>
         </div>
@@ -294,49 +328,31 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
   </section>
 
   <section class="section" id="record" aria-labelledby="recordTitle">
-    <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Enter your daily sitting time, movement and physical activity for up to seven days.</p></div></div>
-    <div class="record-layout">
-      <div class="table-card">
-        <h3 class="table-title">▣ &nbsp;My 7-day tracker</h3>
-        <div class="table-scroll">
-          <table aria-label="Seven-day sitting, movement and physical activity tracker">
-            <colgroup><col style="width:8%"><col style="width:12%"><col style="width:12%"><col style="width:10%"><col style="width:12%"><col style="width:14%"><col style="width:12%"><col style="width:12%"></colgroup>
-            <thead>
-              <tr><th rowspan="2" class="day-head">Day</th><th colspan="3" class="group sitting-group">▱ &nbsp;Sitting time (hours)</th><th colspan="2" class="group movement-group">🚶 &nbsp;Movement (daily)</th><th colspan="2" class="group activity-group">♧ &nbsp;Physical activity (optional)</th></tr>
-              <tr>
-                <th class="subhead sitting-head">Desk-work sitting<small>hours</small></th>
-                <th class="subhead sitting-head">Other sitting<small>hours</small></th>
-                <th class="subhead total-head">Total sitting<small>hours</small></th>
-                <th class="subhead movement-head">Everyday movement<small>min</small></th>
-                <th class="subhead movement-head">Deliberate movement breaks<small>min</small></th>
-                <th class="subhead activity-head">Moderate<small>min</small></th>
-                <th class="subhead activity-head">Vigorous<small>min</small></th>
-              </tr>
-            </thead>
-            <tbody id="trackerRows"></tbody>
-          </table>
-        </div>
-        <p class="table-hint">Enter 0 if you did not do desk work or had no activity in that category. Leave a field blank if it has not been recorded. Daily sitting totals are calculated when both sitting fields are entered. Sleep is not included.</p>
-        <div class="week-inputs">
-          <div class="week-input"><label for="weekStart">Week beginning (Monday)</label><input id="weekStart" type="date"></div>
-          <div class="week-input"><label for="longestSitting">Longest uninterrupted sitting period this week (hours)</label><input id="longestSitting" type="number" min="0" max="24" step=".25" placeholder="e.g. 2.5"></div>
-        </div>
+    <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Record sitting first, then the movement that forms part of your day.</p></div><span class="week-range" id="weekRange" aria-label="Current tracking week"></span></div>
+    <div class="recording-guide" aria-label="Before you record">
+      <div class="guide-intro-card"><strong>Before you begin</strong><p><b>Sitting time:</b> enter hours per day. Record desk-work sitting and other sitting separately; the daily total is calculated for you. Sleep is not included.</p><p><b>Movement:</b> enter minutes. Record everyday movement and deliberate breaks separately. The same activity can fit either category depending on why you got up.</p></div>
+      <div class="guide-types">
+        <div class="guide-type everyday"><strong>🚶 Everyday / task-related movement</strong><p>Movement as part of usual activities — getting water, washroom trips, stairs or walking between work areas.</p></div>
+        <div class="guide-type breaks"><strong>🙆 Deliberate movement breaks</strong><p>Movement you intentionally introduce to interrupt sitting — a short walk, stretching, mobility or a planned movement pause.</p></div>
       </div>
-      <aside class="guide-card" aria-label="Movement recording guidance">
-        <h3 class="guide-title">♧ &nbsp;Guide: how to record movement</h3>
-        <p class="guide-intro">Choose the type of movement based on why you got up.</p>
-        <div class="guide-type everyday"><strong>🚶 Everyday / task-related movement</strong><p>Movement while carrying out usual activities — getting water, washroom trips, stairs or walking between work areas.</p></div>
-        <div class="guide-type breaks"><strong>🙆 Deliberate movement breaks</strong><p>Movement deliberately introduced to interrupt sitting — a short walk, stretching, mobility or a planned movement pause.</p></div>
-        <hr class="guide-divider">
-        <h4>Look for opportunities to move</h4>
-        <ul class="idea-list">
-          <li><strong>Between tasks:</strong> Walk for a few minutes.</li>
-          <li><strong>During suitable calls:</strong> Stand or walk, where practical.</li>
-          <li><strong>Between meetings:</strong> Use the transition to move.</li>
-          <li><strong>At a natural pause:</strong> Stretch or change position.</li>
-        </ul>
-        <div class="caution">ⓘ There is no rigid hourly break prescription. Choose opportunities that fit your work and circumstances.</div>
-      </aside>
+      <div class="guide-opportunities"><strong>Look for natural opportunities to move</strong><span>Between tasks · During suitable calls · Between meetings · At a natural pause</span><small>There is no rigid hourly break prescription. Choose opportunities that fit your work and circumstances.</small></div>
+    </div>
+    <div class="tracker-stack">
+      <div class="table-card tracker-card sitting-tracker">
+        <div class="tracker-card-head"><div><h3 class="table-title">▱ &nbsp;1. My weekly sitting tracker</h3><p>Enter your daily sitting time in <b>hours</b>.</p></div><span class="unit-tag">Hours / day</span></div>
+        <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day sitting time tracker"><colgroup><col style="width:15%"><col style="width:28%"><col style="width:28%"><col style="width:29%"></colgroup><thead><tr><th class="day-head">Day</th><th class="sitting-head">Desk-work sitting<small>hours</small></th><th class="sitting-head">Other sitting<small>hours</small></th><th class="total-head">Total sitting<small>hours</small></th></tr></thead><tbody id="sittingRows"></tbody></table></div>
+        <p class="table-hint">Enter 0 if you did no desk work or had no other sitting. Leave a field blank if it has not yet been recorded.</p>
+      </div>
+      <div class="table-card tracker-card movement-tracker">
+        <div class="tracker-card-head"><div><h3 class="table-title">🚶 &nbsp;2. My weekly movement tracker</h3><p>Record the minutes spent moving in each category each day.</p></div><span class="unit-tag">Minutes / day</span></div>
+        <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day movement tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="movement-head">Everyday / task-related movement<small>minutes</small></th><th class="movement-head">Deliberate movement breaks<small>minutes</small></th></tr></thead><tbody id="movementRows"></tbody></table></div>
+        <p class="table-hint">These minutes describe interruptions to sitting. Do not add them to physical activity minutes below.</p>
+      </div>
+      <div class="table-card tracker-card activity-tracker">
+        <div class="tracker-card-head"><div><h3 class="table-title">3. My physical activity (optional)</h3><p>Record moderate- and vigorous-intensity activity separately from movement breaks.</p></div><span class="unit-tag">Minutes / day</span></div>
+        <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day moderate and vigorous physical activity tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="activity-head">Moderate intensity<small>minutes</small></th><th class="activity-head">Vigorous intensity<small>minutes</small></th></tr></thead><tbody id="activityRows"></tbody></table></div>
+        <p class="table-hint">Talk Test: moderate — you can talk but not sing comfortably; vigorous — you can say only a few words without pausing for breath.</p>
+      </div>
     </div>
   </section>
 
@@ -359,7 +375,7 @@ const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 function monday(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-((x.getDay()+6)%7));return x;}
 function plus(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x;}
 function blankDay(){return {work:'',other:'',everyday:'',breaks:'',moderate:'',vigorous:''};}
-function blankWeek(){return {days:Array.from({length:7},blankDay),longest:'',reflection:''};}
+function blankWeek(){return {days:Array.from({length:7},blankDay),reflection:''};}
 function readStore(){try{const x=JSON.parse(localStorage.getItem(KEY));return x&&typeof x==='object'?{weeks:x.weeks||{},reviews:x.reviews||{}}:{weeks:{},reviews:{}};}catch(_){return {weeks:{},reviews:{}};}}
 let store=readStore(),weekDate=monday(today),week=blankWeek(),timer=null;
 const key=()=>iso(weekDate);
@@ -370,24 +386,18 @@ const mins=v=>v===null?'—':Math.round(v)+' min';
 function normalise(w){const base=blankWeek();if(!w||typeof w!=='object')return base;return {...base,...w,days:Array.from({length:7},(_,i)=>({...blankDay(),...(w.days&&w.days[i]||{})}))};}
 function save(){store.weeks[key()]=week;try{localStorage.setItem(KEY,JSON.stringify(store));$('saveStatus').textContent='Saved automatically on this device.';}catch(_){$('saveStatus').textContent='Automatic saving failed. Export a backup to keep your entries.';}}
 function schedule(){clearTimeout(timer);$('saveStatus').textContent='Saving…';timer=setTimeout(save,180);}
-function load(){store=readStore();week=normalise(store.weeks[key()]);$('weekStart').value=key();renderRows();syncInputs();renderAll();$('saveStatus').textContent='Your entries save automatically in this browser.';}
+function load(){store=readStore();week=normalise(store.weeks[key()]);renderWeekRange();renderRows();syncInputs();renderAll();$('saveStatus').textContent='Your entries save automatically in this browser.';}
+function renderWeekRange(){const first=weekDate,last=plus(weekDate,6);const fmt=d=>d.toLocaleDateString(undefined,{day:'numeric',month:'short'});$('weekRange').textContent=fmt(first)+' – '+fmt(last);}
 function renderRows(){
- const body=$('trackerRows');body.innerHTML='';
- DAYS.forEach((day,i)=>{
-  const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});
-  const tr=document.createElement('tr');
-  tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+
-   cell(i,'work','e.g. 4.0','Sitting hours')+cell(i,'other','e.g. 2.0','Other sitting hours')+
-   '<td class="total-cell" id="total'+i+'">—</td>'+
-   cell(i,'everyday','e.g. 10','Everyday movement minutes')+
-   cell(i,'breaks','e.g. 5','Deliberate movement break minutes')+
-   cell(i,'moderate','e.g. 30','Moderate activity minutes')+
-   cell(i,'vigorous','e.g. 10','Vigorous activity minutes');
-  body.appendChild(tr);
- });
+ const configs=[
+  {id:'sittingRows',fields:[['work','e.g. 4.0','Desk-work sitting hours'],['other','e.g. 2.0','Other sitting hours']]},
+  {id:'movementRows',fields:[['everyday','e.g. 10','Everyday movement minutes'],['breaks','e.g. 5','Deliberate movement break minutes']]},
+  {id:'activityRows',fields:[['moderate','e.g. 30','Moderate-intensity activity minutes'],['vigorous','e.g. 10','Vigorous-intensity activity minutes']]}
+ ];
+ configs.forEach(cfg=>{const body=$(cfg.id);body.innerHTML='';DAYS.forEach((day,i)=>{const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const tr=document.createElement('tr');tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+cfg.fields.map(f=>cell(i,f[0],f[1],f[2])).join('')+(cfg.id==='sittingRows'?'<td class="total-cell" id="total'+i+'">—</td>':'');body.appendChild(tr);});});
 }
 function cell(i,field,placeholder,label){return '<td><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
-function syncInputs(){document.querySelectorAll('[data-day]').forEach(el=>{el.value=week.days[Number(el.dataset.day)][el.dataset.field]??'';});$('longestSitting').value=week.longest??'';$('reflectionGoal').value=week.reflection??'';updateTotals();}
+function syncInputs(){document.querySelectorAll('[data-day]').forEach(el=>{el.value=week.days[Number(el.dataset.day)][el.dataset.field]??'';});$('reflectionGoal').value=week.reflection??'';updateTotals();}
 function updateTotals(){week.days.forEach((d,i)=>{const w=n(d.work),o=n(d.other),el=$('total'+i);if(el)el.textContent=w!==null&&o!==null?hrs(w+o):'—';});}
 function calc(){
  const complete=week.days.filter(d=>n(d.work)!==null&&n(d.other)!==null);
@@ -399,7 +409,7 @@ function calc(){
  const group=(f)=>{const rows=week.days.filter(d=>n(d[f])!==null);return {sum:rows.reduce((s,d)=>s+n(d[f]),0),days:rows.length};};
  const e=group('everyday'),b=group('breaks'),m=group('moderate'),v=group('vigorous');
  const eq=(m.days||v.days)?m.sum+2*v.sum:null;
- return {complete:complete.length,workDays:workDays.length,total,work,other,avgWork,avgTotal,e,b,m,v,eq,longest:n(week.longest)};
+ return {complete:complete.length,workDays:workDays.length,total,work,other,avgWork,avgTotal,e,b,m,v,eq};
 }
 function text(id,v){$(id).textContent=v;}
 function renderAll(){
@@ -422,7 +432,7 @@ function renderChart(){
  values.forEach((v,i)=>{const col=document.createElement('div');col.className='bar-col';const bar=document.createElement('div');bar.className='bar';bar.style.height=(v===null?3:Math.max(5,(v/max)*78))+'px';bar.title=DAYS[i]+': '+(v===null?'not recorded':v.toFixed(1)+' hours');if(v===null)bar.style.opacity='.22';const lab=document.createElement('span');lab.className='bar-label';lab.textContent=DAYS[i];col.append(bar,lab);box.appendChild(col);});
 }
 function renderDetails(c){
- text('detailTotal',c.complete?hrs(c.total):'—');text('detailWork',c.complete?hrs(c.work):'—');text('detailOther',c.complete?hrs(c.other):'—');text('detailDays',c.complete+' of 7');text('detailLongest',hrs(c.longest));
+ text('detailTotal',c.complete?hrs(c.total):'—');text('detailWork',c.complete?hrs(c.work):'—');text('detailOther',c.complete?hrs(c.other):'—');text('detailDays',c.complete+' of 7');
  text('detailEveryday',c.e.days?Math.round(c.e.sum)+' min across '+c.e.days+' recorded days':'—');
  text('detailBreaks',c.b.days?Math.round(c.b.sum)+' min across '+c.b.days+' recorded days':'—');
  text('detailMovement',(c.e.days||c.b.days)?Math.round(c.e.sum+c.b.sum)+' min recorded':'—');
@@ -450,10 +460,8 @@ function importJson(file){const reader=new FileReader();reader.onload=()=>{try{c
 function saveReview(){save();store.reviews=store.reviews||{};store.reviews[key()]=snapshot();const keys=Object.keys(store.reviews).sort();while(keys.length>20)delete store.reviews[keys.shift()];localStorage.setItem(KEY,JSON.stringify(store));renderDetails(calc());$('saveStatus').textContent='Weekly review saved on this device.';}
 document.addEventListener('input',e=>{
  const el=e.target;if(el.matches('[data-day]')){onInput(el);return;}
- if(el.id==='longestSitting'){week.longest=num(el.value,0,24);el.value=week.longest;schedule();renderAll();}
  if(el.id==='reflectionGoal'){week.reflection=el.value;schedule();}
 });
-$('weekStart').addEventListener('change',()=>{const d=new Date($('weekStart').value+'T12:00:00');if(!Number.isNaN(d.getTime())){save();weekDate=monday(d);load();}});
 $('saveWeek').addEventListener('click',saveReview);
 $('exportData').addEventListener('click',exportJson);
 $('importButton').addEventListener('click',()=>$('importFile').click());
@@ -461,7 +469,7 @@ $('importFile').addEventListener('change',e=>{if(e.target.files&&e.target.files[
 $('printPage').addEventListener('click',()=>{window.print();});
 $('openWeeklySummary').addEventListener('click',()=>{const d=$('weeklySummary'),b=$('openWeeklySummary');d.open=!d.open;b.setAttribute('aria-expanded',String(d.open));b.innerHTML=d.open?'Hide weekly summary <span aria-hidden="true">⌃</span>':'View weekly summary <span aria-hidden="true">›</span>';if(d.open)d.scrollIntoView({behavior:'smooth',block:'nearest'});});
 
-weekDate=monday(today);$('weekStart').value=key();load();
+weekDate=monday(today);load();
 })();
 </script>
 </body>
