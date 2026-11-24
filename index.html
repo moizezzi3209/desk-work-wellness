@@ -128,6 +128,28 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 @media(max-width:700px){.dashboard-review{padding:11px}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review-head{flex-direction:column}}
 @media print{.dashboard-review{break-inside:avoid}.dashboard-actions{display:none!important}}
 
+ 
+/* Compact dashboard: one snapshot, with optional detail on demand */
+.compact-top{grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);align-items:stretch}
+.compact-top .overview{display:flex;flex-direction:column}
+.mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:13px 2px 0;font-size:.76rem;color:var(--plum)}
+.mini-chart-head span{font-size:.68rem;color:var(--muted);font-weight:400}
+.mini-chart{height:62px!important;margin:3px 2px 0!important;padding:0 8px!important;gap:14px!important}
+.mini-chart .bar-col{max-width:22px}
+.mini-chart .bar{max-height:48px}
+.dashboard-review{padding:0;margin:-5px 0 14px;box-shadow:none}
+.dashboard-review>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;font-size:.82rem}
+.dashboard-review[open]{padding-bottom:12px}
+.dashboard-review .details-body{padding:0 13px 2px}
+.dashboard-review .detail-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dashboard-review .detail-card{background:#faf6f8}
+.dashboard-review .dashboard-actions{padding:10px 0 0;margin-top:10px}
+.dashboard-review .privacy{margin-top:8px}
+.dashboard-review .recorded-pill{font-weight:500}
+@media(max-width:1050px){.compact-top{grid-template-columns:1fr}.compact-top .guideline{grid-column:auto}}
+@media(max-width:700px){.compact-top{grid-template-columns:1fr}.mini-chart{height:58px!important}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review>summary{align-items:flex-start;flex-wrap:wrap}}
+@media print{.dashboard-review{break-inside:avoid}.dashboard-review>summary{display:none}.dashboard-review:not([open]) .details-body{display:block!important}.dashboard-review .dashboard-actions{display:none!important}}
+
 @media(max-width:1050px){.top-grid{grid-template-columns:1.2fr .8fr}.guideline{grid-column:1/-1}.gauge-layout{justify-content:center}.record-layout{grid-template-columns:1fr}.guide-card{display:grid;grid-template-columns:1fr 1fr;column-gap:15px}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:1/-1}.guide-type{margin:5px 0}}
 @media(max-width:700px){.wrap{width:calc(100% - 18px)}.header-inner{align-items:flex-start;flex-direction:column;gap:8px}.brand-mark{width:48px;flex-basis:48px;font-size:30px}.brand{gap:8px}.brand-copy h1{font-size:1.45rem}.brand-copy p{font-size:.78rem}.nav{width:100%;justify-content:space-between;gap:2px}.nav a{font-size:.69rem;padding:8px 6px}.top-grid{grid-template-columns:1fr 1fr;gap:7px}.overview{grid-column:1/-1}.guideline{grid-column:1/-1}.panel{padding:11px}.panel-title{font-size:1.1rem}.metric{padding:9px;min-height:70px}.metric-icon{font-size:21px}.metric-value{font-size:1.2rem}.metric-label{font-size:.72rem}.week-summary .chart-wrap{height:80px}.gauge-layout{justify-content:flex-start}.section{padding:11px;margin:10px 0}.section-head h2{font-size:1.35rem}.section-head p{font-size:.77rem}.step-number{width:33px;height:33px;flex-basis:33px}.table-card,.guide-card{padding:9px}.guide-card{display:block}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:auto}.week-inputs,.detail-grid{grid-template-columns:1fr}.bottom-actions .btn{flex:1 1 auto}.status{width:100%}}
 @media print{body{background:#fff;font-size:11px}.wrap{width:100%}header{border:0}.nav,.bottom-actions,.week-inputs,.guide-card,.table-hint,.privacy,.summary-button{display:none!important}.top-grid{grid-template-columns:1.3fr .8fr .9fr}.panel,.section{box-shadow:none;break-inside:avoid}.section{padding:8px;margin:8px 0}.record-layout{grid-template-columns:1fr}.table-card{border:0;padding:0}.table-scroll{overflow:visible}table{min-width:0;font-size:8px}td input{border:0;padding:2px;font-size:8px}.goal-section textarea{min-height:80px}.details{display:block}.details summary{display:none}.details-body{display:block!important;padding:5px}.detail-grid{grid-template-columns:repeat(3,1fr)}}
@@ -148,21 +170,17 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
   </div>
 </header>
 <main class="wrap">
-  <section class="top-grid" id="dashboard" aria-label="Weekly dashboard">
+  <section class="top-grid compact-top" id="dashboard" aria-label="Weekly dashboard">
     <div class="panel overview">
-      <div class="overview-head"><div><h2 class="panel-title">▥ &nbsp;Your week at a glance</h2><p class="panel-sub">A live summary of your entries for this week.</p></div><span class="recorded-pill" id="recordedDays">0 of 7 days recorded</span></div>
+      <div class="overview-head"><div><h2 class="panel-title">▥ &nbsp;Your week at a glance</h2><p class="panel-sub">A live snapshot of your recorded week.</p></div><span class="recorded-pill" id="recordedDays">0 of 7 days recorded</span></div>
       <div class="metrics">
         <div class="metric"><div class="metric-icon">▣</div><div><div class="metric-value" id="avgTotal">—</div><div class="metric-label">Avg. daily sitting (total)</div><div class="metric-detail" id="avgTotalNote">Hours per recorded day</div></div></div>
         <div class="metric"><div class="metric-icon">▱</div><div><div class="metric-value" id="avgWork">—</div><div class="metric-label">Avg. desk-work sitting</div><div class="metric-detail" id="avgWorkNote">Hours per recorded work day</div></div></div>
         <div class="metric"><div class="metric-icon">🚶</div><div><div class="metric-value" id="avgEveryday">—</div><div class="metric-label">Everyday movement (min/day)</div><div class="metric-detail" id="avgEverydayNote">Recorded days</div></div></div>
         <div class="metric"><div class="metric-icon">🙆</div><div><div class="metric-value" id="avgBreaks">—</div><div class="metric-label">Deliberate movement breaks (min/day)</div><div class="metric-detail" id="avgBreaksNote">Recorded days</div></div></div>
       </div>
-    </div>
-    <div class="panel week-summary">
-      <h2 class="panel-title">▥ &nbsp;My weekly summary</h2>
-      <p class="panel-sub">A closer look at your week once you’ve added your entries.</p>
-      <div class="chart-wrap" id="sittingChart" aria-label="Daily sitting chart"></div>
-      <button class="summary-button" id="openDetails" type="button">View detailed summary &nbsp;›</button>
+      <div class="mini-chart-head"><strong>Daily sitting pattern</strong><span>Hours per day</span></div>
+      <div class="chart-wrap mini-chart" id="sittingChart" aria-label="Daily sitting chart"></div>
     </div>
     <div class="panel guideline">
       <h2 class="guideline-title">Weekly physical activity guideline — adults</h2>
@@ -187,11 +205,9 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
     </div>
   </section>
 
-  <section class="dashboard-review panel" id="weeklySummary" aria-label="Detailed weekly summary and data actions">
-    <div class="dashboard-review-head">
-      <div><h2 class="panel-title">▥ &nbsp;Detailed weekly summary and comparison</h2><p class="panel-sub">Your recorded week, movement and activity in one place.</p></div>
-      <span class="recorded-pill" id="dashboardReviewDays">0 of 7 days recorded</span>
-    </div>
+  <details class="dashboard-review details" id="weeklySummary" aria-label="Weekly details and data actions">
+    <summary>See weekly details, comparison &amp; save options <span class="recorded-pill" id="dashboardReviewDays">0 of 7 days recorded</span></summary>
+    <div class="details-body">
     <div class="detail-grid">
       <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div><div class="detail-line"><span>Longest uninterrupted sitting</span><strong id="detailLongest">—</strong></div></div>
       <div class="detail-card"><h3>Movement log</h3><div class="detail-line"><span>Everyday movement</span><strong id="detailEveryday">—</strong></div><div class="detail-line"><span>Deliberate breaks</span><strong id="detailBreaks">—</strong></div><div class="detail-line"><span>Combined recorded movement</span><strong id="detailMovement">—</strong></div><p class="privacy">Movement minutes are interruptions to sitting, not a measure of exercise intensity.</p></div>
@@ -206,7 +222,8 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
       <button class="btn secondary" id="printPage" type="button">Print weekly summary</button>
       <span class="status" id="saveStatus" aria-live="polite">Your entries save automatically in this browser.</span>
     </div>
-  </section>
+    </div>
+  </details>
 
   <section class="section" id="record" aria-labelledby="recordTitle">
     <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Enter your daily sitting time, movement and physical activity for up to seven days.</p></div></div>
@@ -319,7 +336,7 @@ function calc(){
 function text(id,v){$(id).textContent=v;}
 function renderAll(){
  const c=calc();
- text('recordedDays',c.complete+' of 7 days recorded');text('dashboardReviewDays',c.complete+' of 7 days recorded');
+ text('recordedDays',c.complete+' of 7 days recorded');text('dashboardReviewDays',c.complete+' days recorded');
  text('avgTotal',hrs(c.avgTotal));text('avgTotalNote',c.complete?'Based on '+c.complete+' complete days':'Enter both sitting values');
  text('avgWork',hrs(c.avgWork));text('avgWorkNote',c.workDays?'Based on '+c.workDays+' recorded days':'Enter desk-work sitting');
  const avE=c.e.days?c.e.sum/c.e.days:null,avB=c.b.days?c.b.sum/c.b.days:null;
@@ -374,7 +391,7 @@ $('exportData').addEventListener('click',exportJson);
 $('importButton').addEventListener('click',()=>$('importFile').click());
 $('importFile').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])importJson(e.target.files[0]);e.target.value='';});
 $('printPage').addEventListener('click',()=>{window.print();});
-$('openDetails').addEventListener('click',()=>{$('weeklySummary').scrollIntoView({behavior:'smooth',block:'start'});});
+
 weekDate=monday(today);$('weekStart').value=key();load();
 })();
 </script>
