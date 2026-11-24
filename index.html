@@ -119,6 +119,15 @@ textarea{width:100%;min-height:125px;resize:vertical;border:1px solid #d8cbd2;bo
 .detail-line strong{text-align:right}
 .privacy{font-size:.73rem;color:var(--muted);margin:10px 0 0}
 footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
+.dashboard-review{padding:15px;margin:-3px 0 16px}
+.dashboard-review-head{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:12px}
+.dashboard-review .detail-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dashboard-review .detail-card{background:#faf6f8}
+.dashboard-actions{border-top:1px solid var(--line);padding-top:12px}
+.dashboard-review .privacy{margin-top:8px}
+@media(max-width:700px){.dashboard-review{padding:11px}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review-head{flex-direction:column}}
+@media print{.dashboard-review{break-inside:avoid}.dashboard-actions{display:none!important}}
+
 @media(max-width:1050px){.top-grid{grid-template-columns:1.2fr .8fr}.guideline{grid-column:1/-1}.gauge-layout{justify-content:center}.record-layout{grid-template-columns:1fr}.guide-card{display:grid;grid-template-columns:1fr 1fr;column-gap:15px}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:1/-1}.guide-type{margin:5px 0}}
 @media(max-width:700px){.wrap{width:calc(100% - 18px)}.header-inner{align-items:flex-start;flex-direction:column;gap:8px}.brand-mark{width:48px;flex-basis:48px;font-size:30px}.brand{gap:8px}.brand-copy h1{font-size:1.45rem}.brand-copy p{font-size:.78rem}.nav{width:100%;justify-content:space-between;gap:2px}.nav a{font-size:.69rem;padding:8px 6px}.top-grid{grid-template-columns:1fr 1fr;gap:7px}.overview{grid-column:1/-1}.guideline{grid-column:1/-1}.panel{padding:11px}.panel-title{font-size:1.1rem}.metric{padding:9px;min-height:70px}.metric-icon{font-size:21px}.metric-value{font-size:1.2rem}.metric-label{font-size:.72rem}.week-summary .chart-wrap{height:80px}.gauge-layout{justify-content:flex-start}.section{padding:11px;margin:10px 0}.section-head h2{font-size:1.35rem}.section-head p{font-size:.77rem}.step-number{width:33px;height:33px;flex-basis:33px}.table-card,.guide-card{padding:9px}.guide-card{display:block}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:auto}.week-inputs,.detail-grid{grid-template-columns:1fr}.bottom-actions .btn{flex:1 1 auto}.status{width:100%}}
 @media print{body{background:#fff;font-size:11px}.wrap{width:100%}header{border:0}.nav,.bottom-actions,.week-inputs,.guide-card,.table-hint,.privacy,.summary-button{display:none!important}.top-grid{grid-template-columns:1.3fr .8fr .9fr}.panel,.section{box-shadow:none;break-inside:avoid}.section{padding:8px;margin:8px 0}.record-layout{grid-template-columns:1fr}.table-card{border:0;padding:0}.table-scroll{overflow:visible}table{min-width:0;font-size:8px}td input{border:0;padding:2px;font-size:8px}.goal-section textarea{min-height:80px}.details{display:block}.details summary{display:none}.details-body{display:block!important;padding:5px}.detail-grid{grid-template-columns:repeat(3,1fr)}}
@@ -156,7 +165,14 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
       <button class="summary-button" id="openDetails" type="button">View detailed summary &nbsp;›</button>
     </div>
     <div class="panel guideline">
-      <h2 class="guideline-title">Weekly activity guideline (adults)</h2>
+      <h2 class="guideline-title">Weekly physical activity guideline — adults</h2>
+      <p class="gauge-note" style="font-size:.75rem;margin:0 0 8px">According to the <a href="https://www.who.int/publications/i/item/9789240015128" target="_blank" rel="noopener"><strong>World Health Organization (WHO) 2020 Guidelines on Physical Activity and Sedentary Behaviour</strong></a>, adults should aim for:</p>
+      <ul class="idea-list" style="font-size:.73rem;margin-bottom:8px">
+        <li><strong>150–300 minutes</strong> of moderate-intensity aerobic physical activity per week; or</li>
+        <li><strong>75–150 minutes</strong> of vigorous-intensity aerobic physical activity per week; or</li>
+        <li>An equivalent combination of moderate- and vigorous-intensity activity.</li>
+      </ul>
+      <p class="gauge-note" style="font-size:.73rem;margin:0 0 8px">Adults should also undertake muscle-strengthening activities involving all major muscle groups on <strong>at least 2 days per week</strong>.</p>
       <div class="gauge-layout">
         <div class="gauge">
           <svg viewBox="0 0 220 130" role="img" aria-label="Progress towards 150 moderate-equivalent activity minutes">
@@ -165,9 +181,30 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
           </svg>
           <div class="gauge-copy"><span id="gaugeValue">0 / 150</span><small>minutes</small></div>
         </div>
-        <div class="gauge-text"><strong>Moderate-equivalent activity</strong><span>Minimum target: 150 minutes per week</span><p class="gauge-note">Moderate minutes + twice the vigorous minutes. The guideline range is 150–300 minutes moderate, or 75–150 minutes vigorous, or an equivalent combination.</p></div>
+        <div class="gauge-text"><strong>Progress towards the minimum aerobic activity recommendation</strong><span>Moderate-equivalent minutes</span><p class="gauge-note">Calculated as moderate-intensity minutes + (2 × vigorous-intensity minutes). The gauge shows progress towards the 150-minute minimum, not the full recommended range.</p></div>
       </div>
-      <p class="gauge-note">This compares aerobic activity only. Adult guidelines also recommend muscle-strengthening activity on at least 2 days each week.</p>
+      <p class="gauge-note" style="border-top:1px solid var(--line);padding-top:7px;margin-top:5px">Source: Bull FC, Al-Ansari SS, Biddle S, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. <em>British Journal of Sports Medicine</em>. 2020;54:1451–1462. <a href="https://doi.org/10.1136/bjsports-2020-102955" target="_blank" rel="noopener">doi:10.1136/bjsports-2020-102955</a>.</p>
+    </div>
+  </section>
+
+  <section class="dashboard-review panel" aria-label="Detailed weekly summary and data actions">
+    <div class="dashboard-review-head">
+      <div><h2 class="panel-title">▥ &nbsp;Detailed weekly summary and comparison</h2><p class="panel-sub">Your recorded week, movement and activity in one place.</p></div>
+      <span class="recorded-pill" id="dashboardReviewDays">0 of 7 days recorded</span>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div><div class="detail-line"><span>Longest uninterrupted sitting</span><strong id="detailLongest">—</strong></div></div>
+      <div class="detail-card"><h3>Movement log</h3><div class="detail-line"><span>Everyday movement</span><strong id="detailEveryday">—</strong></div><div class="detail-line"><span>Deliberate breaks</span><strong id="detailBreaks">—</strong></div><div class="detail-line"><span>Combined recorded movement</span><strong id="detailMovement">—</strong></div><p class="privacy">Movement minutes are interruptions to sitting, not a measure of exercise intensity.</p></div>
+      <div class="detail-card"><h3>Weekly physical activity</h3><div class="detail-line"><span>Moderate intensity</span><strong id="detailModerate">—</strong></div><div class="detail-line"><span>Vigorous intensity</span><strong id="detailVigorous">—</strong></div><div class="detail-line"><span>Moderate-equivalent</span><strong id="detailEquivalent">—</strong></div><div class="detail-line"><span>Adult minimum guideline</span><strong id="detailGuideline">—</strong></div></div>
+    </div>
+    <p class="privacy" id="comparison">Save this week’s review. When you have another saved week, a comparison will appear here. Changes are descriptive, not a health score.</p>
+    <div class="bottom-actions dashboard-actions">
+      <button class="btn" id="saveWeek" type="button">Save weekly review</button>
+      <button class="btn secondary" id="exportData" type="button">Export my entries</button>
+      <button class="btn secondary" id="importButton" type="button">Import backup</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+      <button class="btn secondary" id="printPage" type="button">Print weekly summary</button>
+      <span class="status" id="saveStatus" aria-live="polite">Your entries save automatically in this browser.</span>
     </div>
   </section>
 
@@ -221,25 +258,6 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
   <section class="section" id="reflection" aria-labelledby="reflectionTitle">
     <div class="section-head"><span class="step-number">2</span><div><h2 id="reflectionTitle">My reflection &amp; goal for next week</h2><p>Based on what you’ve noticed, write a short reflection and one simple, achievable goal.</p></div></div>
     <div class="goal-section"><label for="reflectionGoal">What did you notice this week? What would you like to continue or try next week?</label><textarea id="reflectionGoal" placeholder="This week I noticed …&#10;&#10;My goal for next week is …"></textarea></div>
-    <div class="bottom-actions">
-      <button class="btn" id="saveWeek" type="button">Save weekly review</button>
-      <button class="btn secondary" id="exportData" type="button">Export my entries</button>
-      <button class="btn secondary" id="importButton" type="button">Import backup</button>
-      <input id="importFile" type="file" accept="application/json,.json" hidden>
-      <button class="btn secondary" id="printPage" type="button">Print weekly summary</button>
-      <span class="status" id="saveStatus" aria-live="polite">Your entries save automatically in this browser.</span>
-    </div>
-    <details class="details" id="detailedSummary">
-      <summary>Detailed weekly summary and comparison</summary>
-      <div class="details-body">
-        <div class="detail-grid">
-          <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div><div class="detail-line"><span>Longest uninterrupted sitting</span><strong id="detailLongest">—</strong></div></div>
-          <div class="detail-card"><h3>Movement log</h3><div class="detail-line"><span>Everyday movement</span><strong id="detailEveryday">—</strong></div><div class="detail-line"><span>Deliberate breaks</span><strong id="detailBreaks">—</strong></div><div class="detail-line"><span>Combined recorded movement</span><strong id="detailMovement">—</strong></div><p class="privacy">Movement minutes are interruptions to sitting, not a measure of exercise intensity.</p></div>
-          <div class="detail-card"><h3>Weekly physical activity</h3><div class="detail-line"><span>Moderate intensity</span><strong id="detailModerate">—</strong></div><div class="detail-line"><span>Vigorous intensity</span><strong id="detailVigorous">—</strong></div><div class="detail-line"><span>Moderate-equivalent</span><strong id="detailEquivalent">—</strong></div><div class="detail-line"><span>Adult minimum guideline</span><strong id="detailGuideline">—</strong></div></div>
-        </div>
-        <p class="privacy" id="comparison">A comparison with a previous saved week will appear here once one is available. Changes are descriptive, not a health score.</p>
-      </div>
-    </details>
     <p class="privacy">Your entries stay in this browser on this device. They are not sent to a server or shared with the campaign. Export a copy before changing devices or clearing browser data. This tool does not diagnose, assess health risk or replace advice from a qualified health professional.</p>
   </section>
 </main>
@@ -301,7 +319,7 @@ function calc(){
 function text(id,v){$(id).textContent=v;}
 function renderAll(){
  const c=calc();
- text('recordedDays',c.complete+' of 7 days recorded');
+ text('recordedDays',c.complete+' of 7 days recorded');text('dashboardReviewDays',c.complete+' of 7 days recorded');
  text('avgTotal',hrs(c.avgTotal));text('avgTotalNote',c.complete?'Based on '+c.complete+' complete days':'Enter both sitting values');
  text('avgWork',hrs(c.avgWork));text('avgWorkNote',c.workDays?'Based on '+c.workDays+' recorded days':'Enter desk-work sitting');
  const avE=c.e.days?c.e.sum/c.e.days:null,avB=c.b.days?c.b.sum/c.b.days:null;
@@ -355,8 +373,8 @@ $('saveWeek').addEventListener('click',saveReview);
 $('exportData').addEventListener('click',exportJson);
 $('importButton').addEventListener('click',()=>$('importFile').click());
 $('importFile').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])importJson(e.target.files[0]);e.target.value='';});
-$('printPage').addEventListener('click',()=>{const d=$('detailedSummary');d.open=true;window.print();});
-$('openDetails').addEventListener('click',()=>{$('detailedSummary').open=true;$('detailedSummary').scrollIntoView({behavior:'smooth',block:'center'});});
+$('printPage').addEventListener('click',()=>{window.print();});
+$('openDetails').addEventListener('click',()=>{$('dashboard').scrollIntoView({behavior:'smooth',block:'start'});});
 weekDate=monday(today);$('weekStart').value=key();load();
 })();
 </script>
