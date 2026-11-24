@@ -130,6 +130,19 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 
  
 /* Compact dashboard: one snapshot, with optional detail on demand */
+/* One dashboard card contains the snapshot and optional drill-down */
+.overview .dashboard-details{margin-top:9px;border-top:1px solid var(--line);border-radius:0;background:transparent}
+.overview .dashboard-details>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 2px 2px;color:var(--plum);font-weight:750;font-size:.8rem}
+.overview .dashboard-details>summary::-webkit-details-marker{display:none}
+.overview .dashboard-details>summary:after{content:"＋";font-size:1rem;font-weight:700}
+.overview .dashboard-details[open]>summary:after{content:"−"}
+.overview .dashboard-details-body{padding-top:10px}
+.overview .dashboard-details .detail-grid{grid-template-columns:1fr 1fr}
+.overview .dashboard-details .detail-card:last-child{grid-column:1/-1}
+.overview .dashboard-details .dashboard-actions{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+@media(max-width:700px){.overview .dashboard-details .detail-grid{grid-template-columns:1fr}.overview .dashboard-details .detail-card:last-child{grid-column:auto}.overview .dashboard-details>summary{align-items:flex-start}}
+@media print{.overview .dashboard-details>summary{display:none}.overview .dashboard-details:not([open]) .dashboard-details-body{display:block!important}.overview .dashboard-details .dashboard-actions{display:none!important}}
+
 .compact-top{grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);align-items:stretch}
 .compact-top .overview{display:flex;flex-direction:column}
 .mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:13px 2px 0;font-size:.76rem;color:var(--plum)}
@@ -181,6 +194,25 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
       </div>
       <div class="mini-chart-head"><strong>Daily sitting pattern</strong><span>Hours per day</span></div>
       <div class="chart-wrap mini-chart" id="sittingChart" aria-label="Daily sitting chart"></div>
+      <details class="dashboard-details" id="weeklySummary" aria-label="Weekly details and data actions">
+        <summary><span>See weekly details &amp; comparison</span><span class="recorded-pill" id="dashboardReviewDays">0 of 7 days recorded</span></summary>
+        <div class="dashboard-details-body">
+          <div class="detail-grid">
+            <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div><div class="detail-line"><span>Longest uninterrupted sitting</span><strong id="detailLongest">—</strong></div></div>
+            <div class="detail-card"><h3>Movement log</h3><div class="detail-line"><span>Everyday movement</span><strong id="detailEveryday">—</strong></div><div class="detail-line"><span>Deliberate breaks</span><strong id="detailBreaks">—</strong></div><div class="detail-line"><span>Combined recorded movement</span><strong id="detailMovement">—</strong></div><p class="privacy">Movement minutes are interruptions to sitting, not a measure of exercise intensity.</p></div>
+            <div class="detail-card"><h3>Weekly physical activity</h3><div class="detail-line"><span>Moderate intensity</span><strong id="detailModerate">—</strong></div><div class="detail-line"><span>Vigorous intensity</span><strong id="detailVigorous">—</strong></div><div class="detail-line"><span>Moderate-equivalent</span><strong id="detailEquivalent">—</strong></div><div class="detail-line"><span>Adult minimum guideline</span><strong id="detailGuideline">—</strong></div></div>
+          </div>
+          <p class="privacy" id="comparison">Save this week’s review. When you have another saved week, a comparison will appear here. Changes are descriptive, not a health score.</p>
+          <div class="bottom-actions dashboard-actions">
+            <button class="btn" id="saveWeek" type="button">Save weekly review</button>
+            <button class="btn secondary" id="exportData" type="button">Export my entries</button>
+            <button class="btn secondary" id="importButton" type="button">Import backup</button>
+            <input id="importFile" type="file" accept="application/json,.json" hidden>
+            <button class="btn secondary" id="printPage" type="button">Print weekly summary</button>
+            <span class="status" id="saveStatus" aria-live="polite">Your entries save automatically in this browser.</span>
+          </div>
+        </div>
+      </details>
     </div>
     <div class="panel guideline">
       <h2 class="guideline-title">Weekly physical activity guideline — adults</h2>
@@ -204,26 +236,6 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
       <p class="gauge-note" style="border-top:1px solid var(--line);padding-top:7px;margin-top:5px">Source: Bull FC, Al-Ansari SS, Biddle S, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. <em>British Journal of Sports Medicine</em>. 2020;54:1451–1462. <a href="https://doi.org/10.1136/bjsports-2020-102955" target="_blank" rel="noopener">doi:10.1136/bjsports-2020-102955</a>.</p>
     </div>
   </section>
-
-  <details class="dashboard-review details" id="weeklySummary" aria-label="Weekly details and data actions">
-    <summary>See weekly details, comparison &amp; save options <span class="recorded-pill" id="dashboardReviewDays">0 of 7 days recorded</span></summary>
-    <div class="details-body">
-    <div class="detail-grid">
-      <div class="detail-card"><h3>Sitting pattern</h3><div class="detail-line"><span>Total sitting</span><strong id="detailTotal">—</strong></div><div class="detail-line"><span>Desk-work sitting</span><strong id="detailWork">—</strong></div><div class="detail-line"><span>Other sitting</span><strong id="detailOther">—</strong></div><div class="detail-line"><span>Complete days</span><strong id="detailDays">—</strong></div><div class="detail-line"><span>Longest uninterrupted sitting</span><strong id="detailLongest">—</strong></div></div>
-      <div class="detail-card"><h3>Movement log</h3><div class="detail-line"><span>Everyday movement</span><strong id="detailEveryday">—</strong></div><div class="detail-line"><span>Deliberate breaks</span><strong id="detailBreaks">—</strong></div><div class="detail-line"><span>Combined recorded movement</span><strong id="detailMovement">—</strong></div><p class="privacy">Movement minutes are interruptions to sitting, not a measure of exercise intensity.</p></div>
-      <div class="detail-card"><h3>Weekly physical activity</h3><div class="detail-line"><span>Moderate intensity</span><strong id="detailModerate">—</strong></div><div class="detail-line"><span>Vigorous intensity</span><strong id="detailVigorous">—</strong></div><div class="detail-line"><span>Moderate-equivalent</span><strong id="detailEquivalent">—</strong></div><div class="detail-line"><span>Adult minimum guideline</span><strong id="detailGuideline">—</strong></div></div>
-    </div>
-    <p class="privacy" id="comparison">Save this week’s review. When you have another saved week, a comparison will appear here. Changes are descriptive, not a health score.</p>
-    <div class="bottom-actions dashboard-actions">
-      <button class="btn" id="saveWeek" type="button">Save weekly review</button>
-      <button class="btn secondary" id="exportData" type="button">Export my entries</button>
-      <button class="btn secondary" id="importButton" type="button">Import backup</button>
-      <input id="importFile" type="file" accept="application/json,.json" hidden>
-      <button class="btn secondary" id="printPage" type="button">Print weekly summary</button>
-      <span class="status" id="saveStatus" aria-live="polite">Your entries save automatically in this browser.</span>
-    </div>
-    </div>
-  </details>
 
   <section class="section" id="record" aria-labelledby="recordTitle">
     <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Enter your daily sitting time, movement and physical activity for up to seven days.</p></div></div>
