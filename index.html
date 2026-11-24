@@ -444,7 +444,7 @@ function calc(){
  const eq=(m.days||v.days)?m.sum+2*v.sum:null;
  return {complete:complete.length,workDays:workDays.length,total,work,other,avgWork,avgTotal,e,b,m,v,eq};
 }
-function text(id,v){$(id).textContent=v;}
+function text(id,v){const el=$(id);if(el)el.textContent=v;}
 function renderAll(){
  const c=calc();
  text('recordedDays',c.complete+' of 7 days recorded');text('dashboardReviewDays',c.complete+' days recorded');
