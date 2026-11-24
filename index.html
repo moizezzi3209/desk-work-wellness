@@ -183,6 +183,21 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 @media(max-width:700px){.overview .dashboard-details .detail-grid{grid-template-columns:1fr}.overview .dashboard-details .detail-card:last-child{grid-column:auto}.overview .dashboard-details>summary{align-items:flex-start}}
 @media print{.overview .dashboard-details>summary{display:none}.overview .dashboard-details:not([open]) .dashboard-details-body{display:block!important}.overview .dashboard-details .dashboard-actions{display:none!important}}
 
+/* The two intensity fields become easy-to-tap day cards on phones. */
+@media(max-width:650px){
+ .stacked-table td input{min-height:42px;font-size:16px}
+ .activity-tracker .table-scroll{overflow:visible}
+ .activity-tracker .stacked-table{display:block;width:100%;min-width:0}
+ .activity-tracker .stacked-table colgroup,
+ .activity-tracker .stacked-table thead{display:none}
+ .activity-tracker .stacked-table tbody{display:grid;grid-template-columns:1fr;gap:8px}
+ .activity-tracker .stacked-table tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+ .activity-tracker .stacked-table tbody th{grid-column:1/-1;padding:0 0 7px;background:transparent;border-bottom:1px solid var(--line);font-size:.82rem}
+ .activity-tracker .stacked-table tbody td{display:flex;flex-direction:column;align-items:stretch;gap:5px;min-width:0;padding:0;border:0;background:transparent;text-align:left}
+ .activity-tracker .stacked-table tbody td:before{content:attr(data-label);display:block;min-height:2.3em;font-size:.7rem;line-height:1.25;font-weight:700;color:var(--muted)}
+ .activity-tracker .stacked-table tbody td input{width:100%;min-height:44px;padding:8px 6px;text-align:center}
+}
+
 .compact-top{grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);align-items:stretch}
 .compact-top .overview{display:flex;flex-direction:column}
 .mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:13px 2px 0;font-size:.76rem;color:var(--plum)}
@@ -396,7 +411,7 @@ function renderRows(){
  ];
  configs.forEach(cfg=>{const body=$(cfg.id);body.innerHTML='';DAYS.forEach((day,i)=>{const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const tr=document.createElement('tr');tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+cfg.fields.map(f=>cell(i,f[0],f[1],f[2])).join('')+(cfg.id==='sittingRows'?'<td class="total-cell" id="total'+i+'">—</td>':'');body.appendChild(tr);});});
 }
-function cell(i,field,placeholder,label){return '<td><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
+function cell(i,field,placeholder,label){return '<td data-label="'+label+'"><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
 function syncInputs(){document.querySelectorAll('[data-day]').forEach(el=>{el.value=week.days[Number(el.dataset.day)][el.dataset.field]??'';});$('reflectionGoal').value=week.reflection??'';updateTotals();}
 function updateTotals(){week.days.forEach((d,i)=>{const w=n(d.work),o=n(d.other),el=$('total'+i);if(el)el.textContent=w!==null&&o!==null?hrs(w+o):'—';});}
 function calc(){
@@ -451,6 +466,7 @@ function onInput(el){
   const other=field==='work'?n(week.days[i].other):n(val),work=field==='work'?n(val):n(week.days[i].work);
   if(other!==null&&work!==null&&work+other>24){el.value=old;el.classList.add('invalid');$('saveStatus').textContent='Daily sitting cannot exceed 24 hours. Please check these two entries.';setTimeout(()=>el.classList.remove('invalid'),1400);return;}
  }
+ if(val===old&&el.value===val)return;
  el.value=val;
  week.days[i][field]=val;schedule();renderAll();
 }
