@@ -491,9 +491,21 @@ function snapshot(){const c=calc();return {week:key(),avgTotal:c.avgTotal,total:
 function exportJson(){save();const blob=new Blob([JSON.stringify({format:'Desk Work Wellness Tracker backup',version:3,exportedAt:new Date().toISOString(),data:store},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='desk-work-wellness-backup-'+key()+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);$('saveStatus').textContent='Backup exported.';}
 function importJson(file){const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);const data=parsed.data||parsed;if(!data.weeks||typeof data.weeks!=='object')throw new Error('This file does not contain a Desk Work Wellness backup.');store={weeks:data.weeks,reviews:data.reviews||{}};localStorage.setItem(KEY,JSON.stringify(store));load();$('saveStatus').textContent='Backup imported successfully.';}catch(e){$('saveStatus').textContent=e.message||'Could not import this file.';}};reader.readAsText(file);}
 function saveReview(){save();store.reviews=store.reviews||{};store.reviews[key()]=snapshot();const keys=Object.keys(store.reviews).sort();while(keys.length>20)delete store.reviews[keys.shift()];localStorage.setItem(KEY,JSON.stringify(store));renderDetails(calc());$('saveStatus').textContent='Weekly review saved on this device.';}
+function handleTrackerField(el){
+ if(!el||!el.matches('[data-day]'))return;
+ // Reconcile the live field value with the weekly data model before refreshing summaries.
+ const i=Number(el.dataset.day),field=el.dataset.field;
+ if(!Number.isInteger(i)||i<0||i>6||!week.days[i]||!field)return;
+ onInput(el);
+}
 document.addEventListener('input',e=>{
- const el=e.target;if(el.matches('[data-day]')){onInput(el);return;}
+ const el=e.target;if(el.matches('[data-day]')){handleTrackerField(el);return;}
  if(el.id==='reflectionGoal'){week.reflection=el.value;schedule();}
+});
+// Mobile numeric keyboards can commit a value on change/blur; this fallback
+// ensures the dashboard refreshes even if an input event was not emitted.
+document.addEventListener('change',e=>{
+ const el=e.target;if(el.matches('[data-day]'))handleTrackerField(el);
 });
 $('saveWeek').addEventListener('click',saveReview);
 $('exportData').addEventListener('click',exportJson);
