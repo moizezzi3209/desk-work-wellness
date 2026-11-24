@@ -240,6 +240,23 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 }
 @media(max-width:380px){.guide-types{grid-template-columns:1fr}.stacked-table thead th{font-size:.62rem}.stacked-table td input{font-size:.68rem}}
 
+/* Condensed guide and single combined activity table */
+.sitting-instructions{border:1px solid var(--line);border-radius:10px;background:#fbf7f9;padding:9px 11px;margin:0 0 10px;font-size:.76rem;line-height:1.4}
+.activity-guide{border:1px solid var(--line);border-radius:13px;padding:11px;background:#fff;margin:0 0 10px}
+.activity-guide-heading h3{font:700 1.1rem/1.2 Georgia,serif;color:var(--plum);margin:0 0 3px}
+.activity-guide-heading p{font-size:.75rem;color:var(--muted);margin:0 0 8px}
+.activity-guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.activity-guide-grid .guide-type{margin:0;padding:9px 10px;min-width:0}
+.activity-guide-grid .guide-type p{font-size:.73rem;line-height:1.35}
+.guide-type.moderate{background:#eef3fb}.guide-type.vigorous{background:#f5eefa}
+.talk-test{display:flex;gap:7px;align-items:flex-start;border-radius:7px;background:#fff;padding:6px 8px;margin-top:7px;font-size:.7rem;line-height:1.3}
+.talk-test b{color:var(--plum);white-space:nowrap}
+.guide-opportunities{margin-top:8px}
+.combined-activity-table{min-width:680px}
+.combined-activity-table thead tr:first-child th{padding:7px 3px}
+.combined-activity-table thead tr:nth-child(2) th{font-size:.69rem}
+@media(max-width:650px){.activity-guide-grid{grid-template-columns:1fr}.activity-guide{padding:9px}.combined-activity-table{min-width:620px}.sitting-instructions{font-size:.73rem}}
+
 </style>
 </head>
 <body>
@@ -329,29 +346,27 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 
   <section class="section" id="record" aria-labelledby="recordTitle">
     <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Record sitting first, then the movement that forms part of your day.</p></div><span class="week-range" id="weekRange" aria-label="Current tracking week"></span></div>
-    <div class="recording-guide" aria-label="Before you record">
-      <div class="guide-intro-card"><strong>Before you begin</strong><p><b>Sitting time:</b> enter hours per day. Record desk-work sitting and other sitting separately; the daily total is calculated for you. Sleep is not included.</p><p><b>Movement:</b> enter minutes. Record everyday movement and deliberate breaks separately. The same activity can fit either category depending on why you got up.</p></div>
-      <div class="guide-types">
-        <div class="guide-type everyday"><strong>🚶 Everyday / task-related movement</strong><p>Movement as part of usual activities — getting water, washroom trips, stairs or walking between work areas.</p></div>
-        <div class="guide-type breaks"><strong>🙆 Deliberate movement breaks</strong><p>Movement you intentionally introduce to interrupt sitting — a short walk, stretching, mobility or a planned movement pause.</p></div>
-      </div>
-      <div class="guide-opportunities"><strong>Look for natural opportunities to move</strong><span>Between tasks · During suitable calls · Between meetings · At a natural pause</span><small>There is no rigid hourly break prescription. Choose opportunities that fit your work and circumstances.</small></div>
-    </div>
+    <div class="sitting-instructions"><strong>Before you record sitting:</strong> Enter hours per day for desk-work sitting and other sitting separately. The daily total is calculated for you. Sleep is not included.</div>
     <div class="tracker-stack">
       <div class="table-card tracker-card sitting-tracker">
         <div class="tracker-card-head"><div><h3 class="table-title">▱ &nbsp;1. My weekly sitting tracker</h3><p>Enter your daily sitting time in <b>hours</b>.</p></div><span class="unit-tag">Hours / day</span></div>
         <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day sitting time tracker"><colgroup><col style="width:15%"><col style="width:28%"><col style="width:28%"><col style="width:29%"></colgroup><thead><tr><th class="day-head">Day</th><th class="sitting-head">Desk-work sitting<small>hours</small></th><th class="sitting-head">Other sitting<small>hours</small></th><th class="total-head">Total sitting<small>hours</small></th></tr></thead><tbody id="sittingRows"></tbody></table></div>
         <p class="table-hint">Enter 0 if you did no desk work or had no other sitting. Leave a field blank if it has not yet been recorded.</p>
       </div>
-      <div class="table-card tracker-card movement-tracker">
-        <div class="tracker-card-head"><div><h3 class="table-title">🚶 &nbsp;2. My weekly movement tracker</h3><p>Record the minutes spent moving in each category each day.</p></div><span class="unit-tag">Minutes / day</span></div>
-        <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day movement tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="movement-head">Everyday / task-related movement<small>minutes</small></th><th class="movement-head">Deliberate movement breaks<small>minutes</small></th></tr></thead><tbody id="movementRows"></tbody></table></div>
-        <p class="table-hint">These minutes describe interruptions to sitting. Do not add them to physical activity minutes below.</p>
+      <div class="activity-guide" aria-label="Guide to recording movement and activity">
+        <div class="activity-guide-heading"><h3>How to record movement &amp; activity</h3><p>Choose the movement category by <b>why you got up</b>; choose intensity by <b>how hard the activity feels</b>.</p></div>
+        <div class="activity-guide-grid">
+          <div class="guide-type everyday"><strong>🚶 Everyday / task-related movement</strong><p>Movement that happens as part of usual activities — getting water, washroom trips, stairs or walking between work areas.</p></div>
+          <div class="guide-type breaks"><strong>🙆 Deliberate movement breaks</strong><p>Movement you intentionally introduce to interrupt sitting — a short walk, stretching, mobility or a planned movement pause.</p></div>
+          <div class="guide-type moderate"><strong>Moderate-intensity activity</strong><p>Activity that makes you breathe faster and feel warmer.</p><div class="talk-test"><b>Talk Test</b><span>You can talk, but not sing comfortably.</span></div></div>
+          <div class="guide-type vigorous"><strong>Vigorous-intensity activity</strong><p>Activity that makes you breathe hard and fast.</p><div class="talk-test"><b>Talk Test</b><span>You can say only a few words before pausing for breath.</span></div></div>
+        </div>
+        <div class="guide-opportunities"><strong>Look for natural opportunities to move</strong><span>Between tasks · During suitable calls · Between meetings · At a natural pause</span><small>No rigid hourly break prescription — choose opportunities that fit your work and circumstances.</small></div>
       </div>
       <div class="table-card tracker-card activity-tracker">
-        <div class="tracker-card-head"><div><h3 class="table-title">3. My physical activity (optional)</h3><p>Record moderate- and vigorous-intensity activity separately from movement breaks.</p></div><span class="unit-tag">Minutes / day</span></div>
-        <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day moderate and vigorous physical activity tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="activity-head">Moderate intensity<small>minutes</small></th><th class="activity-head">Vigorous intensity<small>minutes</small></th></tr></thead><tbody id="activityRows"></tbody></table></div>
-        <p class="table-hint">Talk Test: moderate — you can talk but not sing comfortably; vigorous — you can say only a few words without pausing for breath.</p>
+        <div class="tracker-card-head"><div><h3 class="table-title">2. My daily movement &amp; activity log</h3><p>Record approximate minutes for each day. Physical activity intensity is optional.</p></div><span class="unit-tag">Minutes / day</span></div>
+        <div class="table-scroll"><table class="stacked-table combined-activity-table" aria-label="Seven-day daily movement and physical activity log"><colgroup><col style="width:12%"><col style="width:22%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup><thead><tr><th class="day-head" rowspan="2">Day</th><th class="movement-group" colspan="2">Movement context</th><th class="activity-group" colspan="2">Physical activity intensity</th></tr><tr><th class="movement-head">Everyday movement<small>minutes</small></th><th class="movement-head">Deliberate breaks<small>minutes</small></th><th class="activity-head">Moderate<small>minutes</small></th><th class="activity-head">Vigorous<small>minutes</small></th></tr></thead><tbody id="activityRows"></tbody></table></div>
+        <p class="table-hint">An activity may fit a movement category and an intensity category at the same time. Do not add all four columns together. Only moderate- and vigorous-intensity minutes contribute to the aerobic activity guideline calculation.</p>
       </div>
     </div>
   </section>
@@ -391,8 +406,7 @@ function renderWeekRange(){const first=weekDate,last=plus(weekDate,6);const fmt=
 function renderRows(){
  const configs=[
   {id:'sittingRows',fields:[['work','e.g. 4.0','Desk-work sitting hours'],['other','e.g. 2.0','Other sitting hours']]},
-  {id:'movementRows',fields:[['everyday','e.g. 10','Everyday movement minutes'],['breaks','e.g. 5','Deliberate movement break minutes']]},
-  {id:'activityRows',fields:[['moderate','e.g. 30','Moderate-intensity activity minutes'],['vigorous','e.g. 10','Vigorous-intensity activity minutes']]}
+  {id:'activityRows',fields:[['everyday','e.g. 10','Everyday movement minutes'],['breaks','e.g. 5','Deliberate movement break minutes'],['moderate','e.g. 30','Moderate-intensity activity minutes'],['vigorous','e.g. 10','Vigorous-intensity activity minutes']]}
  ];
  configs.forEach(cfg=>{const body=$(cfg.id);body.innerHTML='';DAYS.forEach((day,i)=>{const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const tr=document.createElement('tr');tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+cfg.fields.map(f=>cell(i,f[0],f[1],f[2])).join('')+(cfg.id==='sittingRows'?'<td class="total-cell" id="total'+i+'">—</td>':'');body.appendChild(tr);});});
 }
