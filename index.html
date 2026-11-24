@@ -267,7 +267,7 @@ const mins=v=>v===null?'—':Math.round(v)+' min';
 function normalise(w){const base=blankWeek();if(!w||typeof w!=='object')return base;return {...base,...w,days:Array.from({length:7},(_,i)=>({...blankDay(),...(w.days&&w.days[i]||{})}))};}
 function save(){store.weeks[key()]=week;try{localStorage.setItem(KEY,JSON.stringify(store));$('saveStatus').textContent='Saved automatically on this device.';}catch(_){$('saveStatus').textContent='Automatic saving failed. Export a backup to keep your entries.';}}
 function schedule(){clearTimeout(timer);$('saveStatus').textContent='Saving…';timer=setTimeout(save,180);}
-function load(){store=readStore();week=normalise(store.weeks[key()]);$('weekStart').value=key();renderRows();renderAll();$('saveStatus').textContent='Your entries save automatically in this browser.';}
+function load(){store=readStore();week=normalise(store.weeks[key()]);$('weekStart').value=key();renderRows();syncInputs();renderAll();$('saveStatus').textContent='Your entries save automatically in this browser.';}
 function renderRows(){
  const body=$('trackerRows');body.innerHTML='';
  DAYS.forEach((day,i)=>{
