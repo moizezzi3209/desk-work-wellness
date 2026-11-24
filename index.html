@@ -187,7 +187,7 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
     </div>
   </section>
 
-  <section class="dashboard-review panel" aria-label="Detailed weekly summary and data actions">
+  <section class="dashboard-review panel" id="weeklySummary" aria-label="Detailed weekly summary and data actions">
     <div class="dashboard-review-head">
       <div><h2 class="panel-title">▥ &nbsp;Detailed weekly summary and comparison</h2><p class="panel-sub">Your recorded week, movement and activity in one place.</p></div>
       <span class="recorded-pill" id="dashboardReviewDays">0 of 7 days recorded</span>
@@ -374,7 +374,7 @@ $('exportData').addEventListener('click',exportJson);
 $('importButton').addEventListener('click',()=>$('importFile').click());
 $('importFile').addEventListener('change',e=>{if(e.target.files&&e.target.files[0])importJson(e.target.files[0]);e.target.value='';});
 $('printPage').addEventListener('click',()=>{window.print();});
-$('openDetails').addEventListener('click',()=>{$('dashboard').scrollIntoView({behavior:'smooth',block:'start'});});
+$('openDetails').addEventListener('click',()=>{$('weeklySummary').scrollIntoView({behavior:'smooth',block:'start'});});
 weekDate=monday(today);$('weekStart').value=key();load();
 })();
 </script>
