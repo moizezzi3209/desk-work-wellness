@@ -346,12 +346,12 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
       <div class="table-card tracker-card movement-tracker">
         <div class="tracker-card-head"><div><h3 class="table-title">🚶 &nbsp;2. My weekly movement tracker</h3><p>Record the minutes spent moving in each category each day.</p></div><span class="unit-tag">Minutes / day</span></div>
         <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day movement tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="movement-head">Everyday / task-related movement<small>minutes</small></th><th class="movement-head">Deliberate movement breaks<small>minutes</small></th></tr></thead><tbody id="movementRows"></tbody></table></div>
-        <p class="table-hint">These minutes describe interruptions to sitting. Do not add them to physical activity minutes below.</p>
+        <p class="table-hint">These minutes describe movement that interrupts sitting. Some activities may also count as moderate or vigorous physical activity; record their intensity separately below.</p>
       </div>
       <div class="table-card tracker-card activity-tracker">
         <div class="tracker-card-head"><div><h3 class="table-title">3. My physical activity (optional)</h3><p>Record moderate- and vigorous-intensity activity separately from movement breaks.</p></div><span class="unit-tag">Minutes / day</span></div>
         <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day moderate and vigorous physical activity tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="activity-head">Moderate intensity<small>minutes</small></th><th class="activity-head">Vigorous intensity<small>minutes</small></th></tr></thead><tbody id="activityRows"></tbody></table></div>
-        <p class="table-hint">Talk Test: moderate — you can talk but not sing comfortably; vigorous — you can say only a few words without pausing for breath.</p>
+        <p class="table-hint">Talk Test: moderate — you can talk but not sing comfortably; vigorous — you can say only a few words without pausing for breath. An activity can be recorded here and as a movement break when both descriptions apply.</p>
       </div>
     </div>
   </section>
@@ -411,7 +411,7 @@ function calc(){
  const eq=(m.days||v.days)?m.sum+2*v.sum:null;
  return {complete:complete.length,workDays:workDays.length,total,work,other,avgWork,avgTotal,e,b,m,v,eq};
 }
-function text(id,v){$(id).textContent=v;}
+function text(id,v){const el=$(id);if(el)el.textContent=v;}
 function renderAll(){
  const c=calc();
  text('recordedDays',c.complete+' of 7 days recorded');text('dashboardReviewDays',c.complete+' days recorded');
@@ -447,11 +447,11 @@ function renderDetails(c){
 }
 function onInput(el){
  const i=Number(el.dataset.day),field=el.dataset.field,val=num(el.value,0,field==='work'||field==='other'?24:1440),old=week.days[i][field];
- el.value=val;
  if((field==='work'||field==='other')&&val!=='' ){
   const other=field==='work'?n(week.days[i].other):n(val),work=field==='work'?n(val):n(week.days[i].work);
   if(other!==null&&work!==null&&work+other>24){el.value=old;el.classList.add('invalid');$('saveStatus').textContent='Daily sitting cannot exceed 24 hours. Please check these two entries.';setTimeout(()=>el.classList.remove('invalid'),1400);return;}
  }
+ el.value=val;
  week.days[i][field]=val;schedule();renderAll();
 }
 function snapshot(){const c=calc();return {week:key(),avgTotal:c.avgTotal,total:c.total,completeDays:c.complete,avgWork:c.avgWork,eq:c.eq,moderate:c.m.sum,vigorous:c.v.sum,reflection:week.reflection,savedAt:new Date().toISOString()};}
@@ -459,8 +459,14 @@ function exportJson(){save();const blob=new Blob([JSON.stringify({format:'Desk W
 function importJson(file){const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);const data=parsed.data||parsed;if(!data.weeks||typeof data.weeks!=='object')throw new Error('This file does not contain a Desk Work Wellness backup.');store={weeks:data.weeks,reviews:data.reviews||{}};localStorage.setItem(KEY,JSON.stringify(store));load();$('saveStatus').textContent='Backup imported successfully.';}catch(e){$('saveStatus').textContent=e.message||'Could not import this file.';}};reader.readAsText(file);}
 function saveReview(){save();store.reviews=store.reviews||{};store.reviews[key()]=snapshot();const keys=Object.keys(store.reviews).sort();while(keys.length>20)delete store.reviews[keys.shift()];localStorage.setItem(KEY,JSON.stringify(store));renderDetails(calc());$('saveStatus').textContent='Weekly review saved on this device.';}
 document.addEventListener('input',e=>{
- const el=e.target;if(el.matches('[data-day]')){onInput(el);return;}
+ const el=e.target;
+ if(el.matches('[data-day]')){onInput(el);return;}
  if(el.id==='reflectionGoal'){week.reflection=el.value;schedule();}
+});
+// Recalculate after a committed value as a fallback for mobile keyboards.
+document.addEventListener('change',e=>{
+ const el=e.target;
+ if(el.matches('[data-day]'))onInput(el);
 });
 $('saveWeek').addEventListener('click',saveReview);
 $('exportData').addEventListener('click',exportJson);
