@@ -257,6 +257,25 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 .combined-activity-table thead tr:nth-child(2) th{font-size:.69rem}
 @media(max-width:650px){.activity-guide-grid{grid-template-columns:1fr}.activity-guide{padding:9px}.combined-activity-table{min-width:620px}.sitting-instructions{font-size:.73rem}}
 
+
+/* Phone layout: turn the four activity columns into labelled, tappable day cards */
+@media(max-width:650px){
+ .table-scroll{overflow:visible}
+ .combined-activity-table{min-width:0;width:100%;display:block}
+ .combined-activity-table colgroup,.combined-activity-table thead{display:none}
+ .combined-activity-table tbody{display:grid;grid-template-columns:1fr;gap:8px}
+ .combined-activity-table tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#fff}
+ .combined-activity-table tbody th{grid-column:1/-1;text-align:left;padding:0 0 6px;background:transparent;border-bottom:1px solid var(--line);font-size:.8rem}
+ .combined-activity-table tbody td{display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:0;padding:0;background:transparent;border:0;text-align:left}
+ .combined-activity-table tbody td:before{content:attr(data-label);display:block;font-size:.67rem;line-height:1.2;font-weight:700;color:var(--muted);min-height:2.2em}
+ .combined-activity-table tbody td input{box-sizing:border-box;width:100%;min-height:42px;padding:8px 5px;font-size:16px;text-align:center}
+ .combined-activity-table tbody tr:focus-within{border-color:#bd8aa1;box-shadow:0 0 0 2px rgba(189,138,161,.14)}
+}
+@media(max-width:360px){
+ .combined-activity-table tbody tr{gap:6px;padding:7px}
+ .combined-activity-table tbody td:before{font-size:.62rem}
+}
+
 </style>
 </head>
 <body>
@@ -410,7 +429,7 @@ function renderRows(){
  ];
  configs.forEach(cfg=>{const body=$(cfg.id);body.innerHTML='';DAYS.forEach((day,i)=>{const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const tr=document.createElement('tr');tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+cfg.fields.map(f=>cell(i,f[0],f[1],f[2])).join('')+(cfg.id==='sittingRows'?'<td class="total-cell" id="total'+i+'">—</td>':'');body.appendChild(tr);});});
 }
-function cell(i,field,placeholder,label){return '<td><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
+function cell(i,field,placeholder,label){return '<td data-label="'+label+'"><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
 function syncInputs(){document.querySelectorAll('[data-day]').forEach(el=>{el.value=week.days[Number(el.dataset.day)][el.dataset.field]??'';});$('reflectionGoal').value=week.reflection??'';updateTotals();}
 function updateTotals(){week.days.forEach((d,i)=>{const w=n(d.work),o=n(d.other),el=$('total'+i);if(el)el.textContent=w!==null&&o!==null?hrs(w+o):'—';});}
 function calc(){
