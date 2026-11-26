@@ -398,7 +398,7 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
   <section class="section" id="record" aria-labelledby="recordTitle">
     <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Record sitting first, then the movement that forms part of your day.</p></div><span class="week-range" id="weekRange" aria-label="Current tracking week"></span></div>
     <div class="recording-guide" aria-label="Before you record">
-      <div class="guide-intro-card"><strong>Before you record</strong><p><b>1. Sitting · hours:</b> enter desk-work sitting and other sitting separately. The daily total is calculated for you; sleep is excluded.</p><p><b>2. Movement · minutes:</b> record everyday movement and deliberate breaks that interrupt sitting.</p><p><b>3. Physical activity · minutes:</b> record moderate and vigorous activity separately. Use the Talk Test below.</p></div>
+      <div class="guide-intro-card"><strong>Before you record</strong><p><b>1. Sitting · hours:</b> enter desk-work sitting and other sitting separately. The daily total is calculated for you; sleep is excluded.</p><p><b>2. Movement · minutes:</b> record everyday movement and deliberate breaks that interrupt sitting.</p><p><b>3. Activity · minutes (optional):</b> record moderate and vigorous activity separately. Moderate: you can talk, but not sing. Vigorous: you can say only a few words before pausing for breath.</p></div>
       <div class="guide-types">
         <div class="guide-type everyday"><strong>🚶 Everyday / task-related movement</strong><p>Movement as part of usual activities — getting water, washroom trips, stairs or walking between work areas.</p></div>
         <div class="guide-type breaks"><strong>🙆 Deliberate movement breaks</strong><p>Movement you intentionally introduce to interrupt sitting — a short walk, stretching, mobility or a planned movement pause.</p></div>
@@ -478,23 +478,23 @@ function renderMobileDays(){
  box.innerHTML='<div class="mobile-entry-heading"><h3>Enter one day at a time</h3><p>Complete all six entries for each day. Daily total sitting is calculated automatically.</p></div>';
  const list=document.createElement('div');list.className='day-entry-list';
  DAYS.forEach((day,i)=>{
-  const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});
+  const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'}),fullDay=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i];
   const card=document.createElement('article');card.className='day-entry-card';
   card.innerHTML=
-   '<header class="day-entry-head"><div class="day-entry-title"><h4>'+day+'</h4><p>'+label+'</p></div>'+
+   '<header class="day-entry-head"><div class="day-entry-title"><h4>'+fullDay+'</h4><p>'+label+'</p></div>'+
    '<div class="day-entry-total"><span>Total sitting</span><strong id="mobileTotal'+i+'">—</strong></div></header>'+
    '<div class="day-entry-groups">'+
     '<section class="day-entry-group sitting"><h5>Sitting <span>hours</span></h5><div class="day-entry-fields">'+
-     mobileField(i,'work','Desk-work','desk-work sitting hours','0.0')+
-     mobileField(i,'other','Other','other sitting hours','0.0')+
+     mobileField(i,'work','Desk-work','desk-work sitting hours','e.g. 4.0')+
+     mobileField(i,'other','Other','other sitting hours','e.g. 2.0')+
     '</div></section>'+
     '<section class="day-entry-group movement"><h5>Movement <span>minutes</span></h5><div class="day-entry-fields">'+
-     mobileField(i,'everyday','Everyday','everyday movement minutes','0')+
-     mobileField(i,'breaks','Breaks','deliberate movement breaks','0')+
+     mobileField(i,'everyday','Everyday','everyday movement minutes','e.g. 10')+
+     mobileField(i,'breaks','Breaks','deliberate movement breaks','e.g. 5')+
     '</div></section>'+
-    '<section class="day-entry-group activity"><h5>Activity <span>minutes</span></h5><div class="day-entry-fields">'+
-     mobileField(i,'moderate','Moderate','moderate-intensity activity minutes','0')+
-     mobileField(i,'vigorous','Vigorous','vigorous-intensity activity minutes','0')+
+    '<section class="day-entry-group activity"><h5>Activity <span>minutes · optional</span></h5><div class="day-entry-fields">'+
+     mobileField(i,'moderate','Moderate','moderate-intensity activity minutes','e.g. 30')+
+     mobileField(i,'vigorous','Vigorous','vigorous-intensity activity minutes','e.g. 10')+
     '</div></section>'+
    '</div>';
   list.appendChild(card);
