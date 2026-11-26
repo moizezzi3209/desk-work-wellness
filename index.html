@@ -183,6 +183,21 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 @media(max-width:700px){.overview .dashboard-details .detail-grid{grid-template-columns:1fr}.overview .dashboard-details .detail-card:last-child{grid-column:auto}.overview .dashboard-details>summary{align-items:flex-start}}
 @media print{.overview .dashboard-details>summary{display:none}.overview .dashboard-details:not([open]) .dashboard-details-body{display:block!important}.overview .dashboard-details .dashboard-actions{display:none!important}}
 
+/* The two intensity fields become easy-to-tap day cards on phones. */
+@media(max-width:650px){
+ .stacked-table td input{min-height:42px;font-size:16px}
+ .activity-tracker .table-scroll{overflow:visible}
+ .activity-tracker .stacked-table{display:block;width:100%;min-width:0}
+ .activity-tracker .stacked-table colgroup,
+ .activity-tracker .stacked-table thead{display:none}
+ .activity-tracker .stacked-table tbody{display:grid;grid-template-columns:1fr;gap:8px}
+ .activity-tracker .stacked-table tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+ .activity-tracker .stacked-table tbody th{grid-column:1/-1;padding:0 0 7px;background:transparent;border-bottom:1px solid var(--line);font-size:.82rem}
+ .activity-tracker .stacked-table tbody td{display:flex;flex-direction:column;align-items:stretch;gap:5px;min-width:0;padding:0;border:0;background:transparent;text-align:left}
+ .activity-tracker .stacked-table tbody td:before{content:attr(data-label);display:block;min-height:2.3em;font-size:.7rem;line-height:1.25;font-weight:700;color:var(--muted)}
+ .activity-tracker .stacked-table tbody td input{width:100%;min-height:44px;padding:8px 6px;text-align:center}
+}
+
 .compact-top{grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);align-items:stretch}
 .compact-top .overview{display:flex;flex-direction:column}
 .mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:13px 2px 0;font-size:.76rem;color:var(--plum)}
@@ -346,12 +361,12 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
       <div class="table-card tracker-card movement-tracker">
         <div class="tracker-card-head"><div><h3 class="table-title">🚶 &nbsp;2. My weekly movement tracker</h3><p>Record the minutes spent moving in each category each day.</p></div><span class="unit-tag">Minutes / day</span></div>
         <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day movement tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="movement-head">Everyday / task-related movement<small>minutes</small></th><th class="movement-head">Deliberate movement breaks<small>minutes</small></th></tr></thead><tbody id="movementRows"></tbody></table></div>
-        <p class="table-hint">These minutes describe interruptions to sitting. Do not add them to physical activity minutes below.</p>
+        <p class="table-hint">These minutes describe movement that interrupts sitting. Some activities may also count as moderate or vigorous physical activity; record their intensity separately below.</p>
       </div>
       <div class="table-card tracker-card activity-tracker">
         <div class="tracker-card-head"><div><h3 class="table-title">3. My physical activity (optional)</h3><p>Record moderate- and vigorous-intensity activity separately from movement breaks.</p></div><span class="unit-tag">Minutes / day</span></div>
         <div class="table-scroll"><table class="stacked-table" aria-label="Seven-day moderate and vigorous physical activity tracker"><colgroup><col style="width:15%"><col style="width:42.5%"><col style="width:42.5%"></colgroup><thead><tr><th class="day-head">Day</th><th class="activity-head">Moderate intensity<small>minutes</small></th><th class="activity-head">Vigorous intensity<small>minutes</small></th></tr></thead><tbody id="activityRows"></tbody></table></div>
-        <p class="table-hint">Talk Test: moderate — you can talk but not sing comfortably; vigorous — you can say only a few words without pausing for breath.</p>
+        <p class="table-hint">Talk Test: moderate — you can talk but not sing comfortably; vigorous — you can say only a few words without pausing for breath. An activity can be recorded here and as a movement break when both descriptions apply.</p>
       </div>
     </div>
   </section>
@@ -396,7 +411,7 @@ function renderRows(){
  ];
  configs.forEach(cfg=>{const body=$(cfg.id);body.innerHTML='';DAYS.forEach((day,i)=>{const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const tr=document.createElement('tr');tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+cfg.fields.map(f=>cell(i,f[0],f[1],f[2])).join('')+(cfg.id==='sittingRows'?'<td class="total-cell" id="total'+i+'">—</td>':'');body.appendChild(tr);});});
 }
-function cell(i,field,placeholder,label){return '<td><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
+function cell(i,field,placeholder,label){return '<td data-label="'+label+'"><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
 function syncInputs(){document.querySelectorAll('[data-day]').forEach(el=>{el.value=week.days[Number(el.dataset.day)][el.dataset.field]??'';});$('reflectionGoal').value=week.reflection??'';updateTotals();}
 function updateTotals(){week.days.forEach((d,i)=>{const w=n(d.work),o=n(d.other),el=$('total'+i);if(el)el.textContent=w!==null&&o!==null?hrs(w+o):'—';});}
 function calc(){
@@ -411,7 +426,7 @@ function calc(){
  const eq=(m.days||v.days)?m.sum+2*v.sum:null;
  return {complete:complete.length,workDays:workDays.length,total,work,other,avgWork,avgTotal,e,b,m,v,eq};
 }
-function text(id,v){$(id).textContent=v;}
+function text(id,v){const el=$(id);if(el)el.textContent=v;}
 function renderAll(){
  const c=calc();
  text('recordedDays',c.complete+' of 7 days recorded');text('dashboardReviewDays',c.complete+' days recorded');
@@ -447,11 +462,12 @@ function renderDetails(c){
 }
 function onInput(el){
  const i=Number(el.dataset.day),field=el.dataset.field,val=num(el.value,0,field==='work'||field==='other'?24:1440),old=week.days[i][field];
- el.value=val;
  if((field==='work'||field==='other')&&val!=='' ){
   const other=field==='work'?n(week.days[i].other):n(val),work=field==='work'?n(val):n(week.days[i].work);
   if(other!==null&&work!==null&&work+other>24){el.value=old;el.classList.add('invalid');$('saveStatus').textContent='Daily sitting cannot exceed 24 hours. Please check these two entries.';setTimeout(()=>el.classList.remove('invalid'),1400);return;}
  }
+ if(val===old&&el.value===val)return;
+ el.value=val;
  week.days[i][field]=val;schedule();renderAll();
 }
 function snapshot(){const c=calc();return {week:key(),avgTotal:c.avgTotal,total:c.total,completeDays:c.complete,avgWork:c.avgWork,eq:c.eq,moderate:c.m.sum,vigorous:c.v.sum,reflection:week.reflection,savedAt:new Date().toISOString()};}
@@ -459,8 +475,14 @@ function exportJson(){save();const blob=new Blob([JSON.stringify({format:'Desk W
 function importJson(file){const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);const data=parsed.data||parsed;if(!data.weeks||typeof data.weeks!=='object')throw new Error('This file does not contain a Desk Work Wellness backup.');store={weeks:data.weeks,reviews:data.reviews||{}};localStorage.setItem(KEY,JSON.stringify(store));load();$('saveStatus').textContent='Backup imported successfully.';}catch(e){$('saveStatus').textContent=e.message||'Could not import this file.';}};reader.readAsText(file);}
 function saveReview(){save();store.reviews=store.reviews||{};store.reviews[key()]=snapshot();const keys=Object.keys(store.reviews).sort();while(keys.length>20)delete store.reviews[keys.shift()];localStorage.setItem(KEY,JSON.stringify(store));renderDetails(calc());$('saveStatus').textContent='Weekly review saved on this device.';}
 document.addEventListener('input',e=>{
- const el=e.target;if(el.matches('[data-day]')){onInput(el);return;}
+ const el=e.target;
+ if(el.matches('[data-day]')){onInput(el);return;}
  if(el.id==='reflectionGoal'){week.reflection=el.value;schedule();}
+});
+// Recalculate after a committed value as a fallback for mobile keyboards.
+document.addEventListener('change',e=>{
+ const el=e.target;
+ if(el.matches('[data-day]'))onInput(el);
 });
 $('saveWeek').addEventListener('click',saveReview);
 $('exportData').addEventListener('click',exportJson);
