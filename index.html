@@ -143,10 +143,10 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 .metric-pair strong{display:block;font:700 1.45rem/1.1 Georgia,serif;color:#251a20}
 .metric-pair span{display:block;font-size:.77rem;font-weight:700;margin-top:5px}
 .metric-pair small{display:block;font-size:.67rem;color:var(--muted);margin-top:2px}
-.mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:12px 1px 0;font-size:.72rem;color:var(--plum)}
-.mini-chart-head span{font-size:.66rem;color:var(--muted);font-weight:400}
-.mini-chart{height:54px!important;margin:2px 0 0!important;padding:0 7px!important;gap:10px!important}
-.mini-chart .bar-col{max-width:20px}.mini-chart .bar{max-height:40px}
+
+
+
+
 .dash-explainer{font-size:.72rem;color:var(--muted);margin:12px 0 0}
 .activity-progress{display:flex;align-items:center;gap:8px}
 .compact-gauge{width:37%;min-width:105px;max-width:145px;flex:0 0 37%}
@@ -200,11 +200,11 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 
 .compact-top{grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);align-items:stretch}
 .compact-top .overview{display:flex;flex-direction:column}
-.mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:13px 2px 0;font-size:.76rem;color:var(--plum)}
-.mini-chart-head span{font-size:.68rem;color:var(--muted);font-weight:400}
-.mini-chart{height:62px!important;margin:3px 2px 0!important;padding:0 8px!important;gap:14px!important}
-.mini-chart .bar-col{max-width:22px}
-.mini-chart .bar{max-height:48px}
+
+
+
+
+
 .dashboard-review{padding:0;margin:-5px 0 14px;box-shadow:none}
 .dashboard-review>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;font-size:.82rem}
 .dashboard-review[open]{padding-bottom:12px}
@@ -215,7 +215,7 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 .dashboard-review .privacy{margin-top:8px}
 .dashboard-review .recorded-pill{font-weight:500}
 @media(max-width:1050px){.compact-top{grid-template-columns:1fr}.compact-top .guideline{grid-column:auto}}
-@media(max-width:700px){.compact-top{grid-template-columns:1fr}.mini-chart{height:58px!important}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review>summary{align-items:flex-start;flex-wrap:wrap}}
+@media(max-width:700px){.compact-top{grid-template-columns:1fr}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review>summary{align-items:flex-start;flex-wrap:wrap}}
 @media print{.dashboard-review{break-inside:avoid}.dashboard-review>summary{display:none}.dashboard-review:not([open]) .details-body{display:block!important}.dashboard-review .dashboard-actions{display:none!important}}
 
 @media(max-width:1050px){.top-grid{grid-template-columns:1.2fr .8fr}.guideline{grid-column:1/-1}.gauge-layout{justify-content:center}.record-layout{grid-template-columns:1fr}.guide-card{display:grid;grid-template-columns:1fr 1fr;column-gap:15px}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:1/-1}.guide-type{margin:5px 0}}
@@ -294,6 +294,14 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 }
 
 /* The dashboard chart is a seven-day horizontal plot, not a vertical list. */
+
+
+
+
+
+
+
+/* Seven-day sitting chart: keep all day bars on one horizontal row. */
 .mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:12px 1px 0;font-size:.72rem;color:var(--plum)}
 .mini-chart-head span{font-size:.66rem;color:var(--muted);font-weight:400}
 .mini-chart{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;height:66px!important;min-height:66px;max-height:66px;overflow:hidden;margin:3px 2px 0!important;padding:2px 4px 0!important}
