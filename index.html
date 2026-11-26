@@ -143,10 +143,10 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 .metric-pair strong{display:block;font:700 1.45rem/1.1 Georgia,serif;color:#251a20}
 .metric-pair span{display:block;font-size:.77rem;font-weight:700;margin-top:5px}
 .metric-pair small{display:block;font-size:.67rem;color:var(--muted);margin-top:2px}
-.mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:12px 1px 0;font-size:.72rem;color:var(--plum)}
-.mini-chart-head span{font-size:.66rem;color:var(--muted);font-weight:400}
-.mini-chart{height:54px!important;margin:2px 0 0!important;padding:0 7px!important;gap:10px!important}
-.mini-chart .bar-col{max-width:20px}.mini-chart .bar{max-height:40px}
+
+
+
+
 .dash-explainer{font-size:.72rem;color:var(--muted);margin:12px 0 0}
 .activity-progress{display:flex;align-items:center;gap:8px}
 .compact-gauge{width:37%;min-width:105px;max-width:145px;flex:0 0 37%}
@@ -200,11 +200,11 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 
 .compact-top{grid-template-columns:minmax(0,1.65fr) minmax(340px,1fr);align-items:stretch}
 .compact-top .overview{display:flex;flex-direction:column}
-.mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:13px 2px 0;font-size:.76rem;color:var(--plum)}
-.mini-chart-head span{font-size:.68rem;color:var(--muted);font-weight:400}
-.mini-chart{height:62px!important;margin:3px 2px 0!important;padding:0 8px!important;gap:14px!important}
-.mini-chart .bar-col{max-width:22px}
-.mini-chart .bar{max-height:48px}
+
+
+
+
+
 .dashboard-review{padding:0;margin:-5px 0 14px;box-shadow:none}
 .dashboard-review>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;font-size:.82rem}
 .dashboard-review[open]{padding-bottom:12px}
@@ -215,7 +215,7 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 .dashboard-review .privacy{margin-top:8px}
 .dashboard-review .recorded-pill{font-weight:500}
 @media(max-width:1050px){.compact-top{grid-template-columns:1fr}.compact-top .guideline{grid-column:auto}}
-@media(max-width:700px){.compact-top{grid-template-columns:1fr}.mini-chart{height:58px!important}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review>summary{align-items:flex-start;flex-wrap:wrap}}
+@media(max-width:700px){.compact-top{grid-template-columns:1fr}.dashboard-review .detail-grid{grid-template-columns:1fr}.dashboard-review>summary{align-items:flex-start;flex-wrap:wrap}}
 @media print{.dashboard-review{break-inside:avoid}.dashboard-review>summary{display:none}.dashboard-review:not([open]) .details-body{display:block!important}.dashboard-review .dashboard-actions{display:none!important}}
 
 @media(max-width:1050px){.top-grid{grid-template-columns:1.2fr .8fr}.guideline{grid-column:1/-1}.gauge-layout{justify-content:center}.record-layout{grid-template-columns:1fr}.guide-card{display:grid;grid-template-columns:1fr 1fr;column-gap:15px}.guide-title,.guide-intro,.guide-divider,.guide-card h4,.idea-list,.caution{grid-column:1/-1}.guide-type{margin:5px 0}}
@@ -255,6 +255,56 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
 }
 @media(max-width:380px){.guide-types{grid-template-columns:1fr}.stacked-table thead th{font-size:.62rem}.stacked-table td input{font-size:.68rem}}
 
+
+/* One wide card per day: all three recording dimensions stay together on phones. */
+.mobile-day-entry{display:none}
+@media(max-width:650px){
+ .tracker-stack{display:none}
+ .mobile-day-entry{display:block}
+ .mobile-entry-heading{margin:0 0 9px}
+ .mobile-entry-heading h3{margin:0;color:var(--plum);font:700 1.02rem/1.2 Georgia,serif}
+ .mobile-entry-heading p{margin:3px 0 0;color:var(--muted);font-size:.75rem}
+ .day-entry-list{display:grid;gap:9px}
+ .day-entry-card{box-sizing:border-box;aspect-ratio:1/1;width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;min-width:0;display:flex;flex-direction:column;justify-content:flex-start}
+ .day-entry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 1px 8px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+ .day-entry-title h4{margin:0;color:var(--plum);font-size:.9rem;line-height:1.15}
+ .day-entry-title p{margin:2px 0 0;color:var(--muted);font-size:.68rem}
+ .day-entry-total{text-align:right;white-space:nowrap}
+ .day-entry-total span{display:block;color:var(--muted);font-size:.65rem}
+ .day-entry-total strong{display:block;color:var(--ink);font:700 .9rem/1.2 Georgia,serif}
+ .day-entry-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:7px;flex:1;min-height:0}
+ .day-entry-field{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:6px 7px;border-radius:8px;background:#f8f5f7}
+ .day-entry-field[data-kind="sitting"]{background:#f0f5fb}
+ .day-entry-field[data-kind="movement"]{background:#f1f7ee}
+ .day-entry-field[data-kind="activity"]{background:#f7f1fa}
+ .day-entry-field .field-kind{display:block;margin-bottom:2px;color:var(--muted);font-size:.55rem;line-height:1.1;font-weight:750;text-transform:uppercase;letter-spacing:.025em}
+ .day-entry-field .field-name{display:block;min-height:1.8em;margin-bottom:3px;color:#352a31;font-size:.65rem;line-height:1.12;font-weight:700;overflow-wrap:anywhere}
+ .day-entry-field input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:42px;padding:5px 4px;border:1px solid #d8cbd2;border-radius:7px;background:#fff;color:var(--ink);text-align:center;font:16px system-ui,-apple-system,sans-serif}
+ .day-entry-field input:focus{outline:2px solid #bd8aa1;outline-offset:1px}
+}
+@media(max-width:360px){
+ .day-entry-card{padding:8px}
+ .day-entry-groups{gap:5px}
+ .day-entry-field{padding:5px}
+ .day-entry-field .field-kind{font-size:.52rem}
+ .day-entry-field .field-name{font-size:.61rem}
+}
+
+/* The dashboard chart is a seven-day horizontal plot, not a vertical list. */
+
+
+
+
+
+
+
+/* Seven-day sitting chart: keep all day bars on one horizontal row. */
+.mini-chart-head{display:flex;justify-content:space-between;align-items:center;margin:12px 1px 0;font-size:.72rem;color:var(--plum)}
+.mini-chart-head span{font-size:.66rem;color:var(--muted);font-weight:400}
+.mini-chart{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;height:66px!important;min-height:66px;max-height:66px;overflow:hidden;margin:3px 2px 0!important;padding:2px 4px 0!important}
+.mini-chart .bar-col{display:flex;flex:1 1 0;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%;min-height:0;max-width:25px}
+.mini-chart .bar{width:100%;max-height:42px;flex:0 0 auto}
+.mini-chart .bar-label{font-size:.62rem;line-height:1}
 </style>
 </head>
 <body>
@@ -345,12 +395,15 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
   <section class="section" id="record" aria-labelledby="recordTitle">
     <div class="section-head"><span class="step-number">1</span><div><h2 id="recordTitle">Record my week</h2><p>Record sitting first, then the movement that forms part of your day.</p></div><span class="week-range" id="weekRange" aria-label="Current tracking week"></span></div>
     <div class="recording-guide" aria-label="Before you record">
-      <div class="guide-intro-card"><strong>Before you begin</strong><p><b>Sitting time:</b> enter hours per day. Record desk-work sitting and other sitting separately; the daily total is calculated for you. Sleep is not included.</p><p><b>Movement:</b> enter minutes. Record everyday movement and deliberate breaks separately. The same activity can fit either category depending on why you got up.</p></div>
+      <div class="guide-intro-card"><strong>Before you record</strong><p><b>1. Sitting · hours:</b> enter desk-work sitting and other sitting separately. The daily total is calculated for you; sleep is excluded.</p><p><b>2. Movement · minutes:</b> record everyday movement and deliberate breaks that interrupt sitting.</p><p><b>3. Activity · minutes (optional):</b> record moderate and vigorous activity separately. Moderate: you can talk, but not sing. Vigorous: you can say only a few words before pausing for breath.</p></div>
       <div class="guide-types">
         <div class="guide-type everyday"><strong>🚶 Everyday / task-related movement</strong><p>Movement as part of usual activities — getting water, washroom trips, stairs or walking between work areas.</p></div>
         <div class="guide-type breaks"><strong>🙆 Deliberate movement breaks</strong><p>Movement you intentionally introduce to interrupt sitting — a short walk, stretching, mobility or a planned movement pause.</p></div>
       </div>
       <div class="guide-opportunities"><strong>Look for natural opportunities to move</strong><span>Between tasks · During suitable calls · Between meetings · At a natural pause</span><small>There is no rigid hourly break prescription. Choose opportunities that fit your work and circumstances.</small></div>
+    </div>
+    <div class="mobile-day-entry" id="mobileDayEntries" aria-label="Daily sitting, movement and physical activity entry">
+      <div class="mobile-entry-heading"><h3>Enter one day at a time</h3><p>Each day includes all six entries. The total sitting time is calculated automatically.</p></div>
     </div>
     <div class="tracker-stack">
       <div class="table-card tracker-card sitting-tracker">
@@ -410,10 +463,38 @@ function renderRows(){
   {id:'activityRows',fields:[['moderate','e.g. 30','Moderate-intensity activity minutes'],['vigorous','e.g. 10','Vigorous-intensity activity minutes']]}
  ];
  configs.forEach(cfg=>{const body=$(cfg.id);body.innerHTML='';DAYS.forEach((day,i)=>{const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const tr=document.createElement('tr');tr.innerHTML='<th scope="row">'+day+'<br><small style="font-weight:500;color:#776b72">'+label+'</small></th>'+cfg.fields.map(f=>cell(i,f[0],f[1],f[2])).join('')+(cfg.id==='sittingRows'?'<td class="total-cell" id="total'+i+'">—</td>':'');body.appendChild(tr);});});
+ renderMobileDays();
 }
 function cell(i,field,placeholder,label){return '<td data-label="'+label+'"><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
+function mobileField(i,field,visibleLabel,accessibleLabel,placeholder){
+ const sitting=field==='work'||field==='other',movement=field==='everyday'||field==='breaks';
+ const kind=sitting?'sitting':movement?'movement':'activity',unit=sitting?'hours':'minutes';
+ return '<label class="day-entry-field" data-kind="'+kind+'"><span class="field-kind">'+kind+' · '+unit+'</span><span class="field-name">'+visibleLabel+'</span><input type="number" min="0" max="'+(sitting?24:1440)+'" step="'+(sitting?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+accessibleLabel+'" placeholder="'+placeholder+'"></label>';
+}
+function renderMobileDays(){
+ const box=$('mobileDayEntries');if(!box)return;
+ box.innerHTML='<div class="mobile-entry-heading"><h3>Enter one day at a time</h3><p>Complete all six entries for each day. Daily total sitting is calculated automatically.</p></div>';
+ const list=document.createElement('div');list.className='day-entry-list';
+ DAYS.forEach((day,i)=>{
+  const date=plus(weekDate,i),label=date.toLocaleDateString(undefined,{day:'numeric',month:'short'}),fullDay=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i];
+  const card=document.createElement('article');card.className='day-entry-card';
+  card.innerHTML=
+   '<header class="day-entry-head"><div class="day-entry-title"><h4>'+fullDay+'</h4><p>'+label+'</p></div>'+
+   '<div class="day-entry-total"><span>Total sitting</span><strong id="mobileTotal'+i+'">—</strong></div></header>'+
+   '<div class="day-entry-groups">'+
+     mobileField(i,'work','Desk-work','desk-work sitting hours','e.g. 4.0')+
+     mobileField(i,'other','Other','other sitting hours','e.g. 2.0')+
+     mobileField(i,'everyday','Everyday','everyday movement minutes','e.g. 10')+
+     mobileField(i,'breaks','Breaks','deliberate movement breaks','e.g. 5')+
+     mobileField(i,'moderate','Moderate','moderate-intensity activity minutes','e.g. 30')+
+     mobileField(i,'vigorous','Vigorous','vigorous-intensity activity minutes','e.g. 10')+
+   '</div>';
+  list.appendChild(card);
+ });
+ box.appendChild(list);
+}
 function syncInputs(){document.querySelectorAll('[data-day]').forEach(el=>{el.value=week.days[Number(el.dataset.day)][el.dataset.field]??'';});$('reflectionGoal').value=week.reflection??'';updateTotals();}
-function updateTotals(){week.days.forEach((d,i)=>{const w=n(d.work),o=n(d.other),el=$('total'+i);if(el)el.textContent=w!==null&&o!==null?hrs(w+o):'—';});}
+function updateTotals(){week.days.forEach((d,i)=>{const w=n(d.work),o=n(d.other),value=w!==null&&o!==null?hrs(w+o):'—',el=$('total'+i),mobile=$('mobileTotal'+i);if(el)el.textContent=value;if(mobile)mobile.textContent=value;});}
 function calc(){
  const complete=week.days.filter(d=>n(d.work)!==null&&n(d.other)!==null);
  const workDays=week.days.filter(d=>n(d.work)!==null);
