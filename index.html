@@ -265,32 +265,29 @@ footer{padding:0 0 24px;color:var(--muted);font-size:.75rem}
  .mobile-entry-heading h3{margin:0;color:var(--plum);font:700 1.02rem/1.2 Georgia,serif}
  .mobile-entry-heading p{margin:3px 0 0;color:var(--muted);font-size:.75rem}
  .day-entry-list{display:grid;gap:9px}
- .day-entry-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;min-width:0}
+ .day-entry-card{box-sizing:border-box;aspect-ratio:1/1;width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;min-width:0;display:flex;flex-direction:column;justify-content:flex-start}
  .day-entry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 1px 8px;margin-bottom:8px;border-bottom:1px solid var(--line)}
  .day-entry-title h4{margin:0;color:var(--plum);font-size:.9rem;line-height:1.15}
  .day-entry-title p{margin:2px 0 0;color:var(--muted);font-size:.68rem}
  .day-entry-total{text-align:right;white-space:nowrap}
  .day-entry-total span{display:block;color:var(--muted);font-size:.65rem}
  .day-entry-total strong{display:block;color:var(--ink);font:700 .9rem/1.2 Georgia,serif}
- .day-entry-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
- .day-entry-group{min-width:0;padding:7px 6px;border-radius:9px}
- .day-entry-group.sitting{background:#f0f5fb}
- .day-entry-group.movement{background:#f1f7ee}
- .day-entry-group.activity{background:#f7f1fa}
- .day-entry-group h5{margin:0 0 7px;color:var(--plum);font-size:.67rem;line-height:1.15}
- .day-entry-group h5 span{display:block;margin-top:2px;color:var(--muted);font-size:.6rem;font-weight:500}
- .day-entry-fields{display:grid;grid-template-columns:1fr;gap:7px}
- .day-entry-field{display:block;min-width:0}
- .day-entry-field span{display:block;min-height:1.9em;margin-bottom:3px;color:#51434b;font-size:.64rem;line-height:1.15;font-weight:700;overflow-wrap:anywhere}
- .day-entry-field input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:42px;padding:7px 4px;border:1px solid #d8cbd2;border-radius:7px;background:#fff;color:var(--ink);text-align:center;font:16px system-ui,-apple-system,sans-serif}
+ .day-entry-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:7px;flex:1;min-height:0}
+ .day-entry-field{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:6px 7px;border-radius:8px;background:#f8f5f7}
+ .day-entry-field[data-kind="sitting"]{background:#f0f5fb}
+ .day-entry-field[data-kind="movement"]{background:#f1f7ee}
+ .day-entry-field[data-kind="activity"]{background:#f7f1fa}
+ .day-entry-field .field-kind{display:block;margin-bottom:2px;color:var(--muted);font-size:.55rem;line-height:1.1;font-weight:750;text-transform:uppercase;letter-spacing:.025em}
+ .day-entry-field .field-name{display:block;min-height:1.8em;margin-bottom:3px;color:#352a31;font-size:.65rem;line-height:1.12;font-weight:700;overflow-wrap:anywhere}
+ .day-entry-field input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:36px;padding:5px 4px;border:1px solid #d8cbd2;border-radius:7px;background:#fff;color:var(--ink);text-align:center;font:16px system-ui,-apple-system,sans-serif}
  .day-entry-field input:focus{outline:2px solid #bd8aa1;outline-offset:1px}
 }
 @media(max-width:360px){
  .day-entry-card{padding:8px}
- .day-entry-groups{gap:4px}
- .day-entry-group{padding:6px 4px}
- .day-entry-group h5{font-size:.63rem}
- .day-entry-field span{font-size:.61rem}
+ .day-entry-groups{gap:5px}
+ .day-entry-field{padding:5px}
+ .day-entry-field .field-kind{font-size:.52rem}
+ .day-entry-field .field-name{font-size:.61rem}
 }
 
 /* The dashboard chart is a seven-day horizontal plot, not a vertical list. */
@@ -470,8 +467,9 @@ function renderRows(){
 }
 function cell(i,field,placeholder,label){return '<td data-label="'+label+'"><input type="number" min="0" max="'+(field==='work'||field==='other'?24:1440)+'" step="'+(field==='work'||field==='other'?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+label+'" placeholder="'+placeholder+'"></td>';}
 function mobileField(i,field,visibleLabel,accessibleLabel,placeholder){
- const sitting=field==='work'||field==='other';
- return '<label class="day-entry-field"><span>'+visibleLabel+'</span><input type="number" min="0" max="'+(sitting?24:1440)+'" step="'+(sitting?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+accessibleLabel+'" placeholder="'+placeholder+'"></label>';
+ const sitting=field==='work'||field==='other',movement=field==='everyday'||field==='breaks';
+ const kind=sitting?'sitting':movement?'movement':'activity',unit=sitting?'hours':'minutes';
+ return '<label class="day-entry-field" data-kind="'+kind+'"><span class="field-kind">'+kind+' · '+unit+'</span><span class="field-name">'+visibleLabel+'</span><input type="number" min="0" max="'+(sitting?24:1440)+'" step="'+(sitting?'.25':'1')+'" inputmode="decimal" data-day="'+i+'" data-field="'+field+'" aria-label="'+DAYS[i]+' '+accessibleLabel+'" placeholder="'+placeholder+'"></label>';
 }
 function renderMobileDays(){
  const box=$('mobileDayEntries');if(!box)return;
@@ -484,18 +482,12 @@ function renderMobileDays(){
    '<header class="day-entry-head"><div class="day-entry-title"><h4>'+fullDay+'</h4><p>'+label+'</p></div>'+
    '<div class="day-entry-total"><span>Total sitting</span><strong id="mobileTotal'+i+'">—</strong></div></header>'+
    '<div class="day-entry-groups">'+
-    '<section class="day-entry-group sitting"><h5>Sitting <span>hours</span></h5><div class="day-entry-fields">'+
      mobileField(i,'work','Desk-work','desk-work sitting hours','e.g. 4.0')+
      mobileField(i,'other','Other','other sitting hours','e.g. 2.0')+
-    '</div></section>'+
-    '<section class="day-entry-group movement"><h5>Movement <span>minutes</span></h5><div class="day-entry-fields">'+
      mobileField(i,'everyday','Everyday','everyday movement minutes','e.g. 10')+
      mobileField(i,'breaks','Breaks','deliberate movement breaks','e.g. 5')+
-    '</div></section>'+
-    '<section class="day-entry-group activity"><h5>Activity <span>minutes · optional</span></h5><div class="day-entry-fields">'+
      mobileField(i,'moderate','Moderate','moderate-intensity activity minutes','e.g. 30')+
      mobileField(i,'vigorous','Vigorous','vigorous-intensity activity minutes','e.g. 10')+
-    '</div></section>'+
    '</div>';
   list.appendChild(card);
  });
